@@ -1,0 +1,64 @@
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Node/build output
+node_modules/
+dist/
+build/
+out/
+
+# Logs and generated reports
+*.log
+logs/*
+!logs/.gitkeep
+coverage/
+
+# Android/recovery firmware binaries and archives
+*.img
+*.bin
+*.mbn
+*.elf
+*.br
+*.dat
+*.new.dat
+*.sparsechunk
+*.ofp
+*.ozip
+*.zip
+*.rar
+*.7z
+*.tar
+*.tar.gz
+*.tgz
+
+# Driver installers and third-party tool binaries
+*.exe
+*.msi
+*.dll
+*.sys
+*.cab
+
+# Keep placeholder/documentation files in binary-oriented folders
+!firmware/**/
+!firmware/**/*.md
+!firmware/**/*.txt
+!firmware/**/*.json
+!firmware/**/*.scatter
+!firmware/**/*.sha256
+!firmware/**/.gitkeep
+!drivers/**/
+!drivers/**/*.md
+!drivers/**/.gitkeep
+!tools/**/
+!tools/**/*.md
+!tools/**/.gitkeep

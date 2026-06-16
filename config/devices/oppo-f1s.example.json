@@ -1,0 +1,20 @@
+{
+  "deviceName": "OPPO F1s",
+  "modelAliases": ["A1601"],
+  "platform": "MediaTek",
+  "connectionModes": ["adb", "fastboot", "preloader"],
+  "paths": {
+    "scatterFile": "firmware/scatter/MTxxxx_Android_scatter.txt",
+    "stockRecovery": "firmware/stock/recovery.img",
+    "customRecovery": "firmware/recovery/recovery.img"
+  },
+  "safetyChecks": {
+    "verifyChecksums": true,
+    "requireBatteryWarning": true,
+    "requireManualVariantConfirmation": true
+  },
+  "notes": [
+    "Replace placeholder paths and chipset details after verifying the exact phone variant.",
+    "Keep large firmware files outside Git; store checksums in firmware/checksums/."
+  ]
+}
