@@ -58,6 +58,25 @@ Run without `-WhatIf` from an Administrator PowerShell window to install the ext
 - Extracted firmware directory: `firmware\stock\Oppo_F1S_A1601_MT6750_EX_11_A.15_160913\Firmware`
 - Scatter file: `firmware\stock\Oppo_F1S_A1601_MT6750_EX_11_A.15_160913\Firmware\MT6750_Android_scatter.txt`
 
+## Official A1601 Recovery OTA
+
+- Source: OPPO-hosted S3 firmware bucket
+- URL: `http://downloads.oppo.com.s3.amazonaws.com/firmware/A1601/A1601EX_11_OTA_040_all_201907091708.zip`
+- Local path: `firmware\ota\A1601EX_11_OTA_040_all_201907091708.zip`
+- Size: `1556821800` bytes
+- SHA-256: `A42F3004B6628B74A3B115B6F9F72A0E49FE6FFAC710183ECD6F7C8C3847A71B`
+- OTA metadata:
+  - `ota-id=A1601EX_11.A.40_INT_040_201907091708`
+  - `version_name=A1601EX_11_A.40_190709`
+  - `pre-device=A1601`
+  - `wipe=0`
+
+Validate it with:
+
+```powershell
+.\scripts\powershell\Test-A1601OtaPackage.ps1
+```
+
 ## Current Device State
 
 Windows currently detects the phone as `OPPO A1601` over normal USB/MTP. It is not currently visible as a MediaTek preloader/VCOM flashing device. For SP Flash Tool, power the phone off and reconnect it in preloader mode after installing the MTK drivers.

@@ -67,3 +67,4 @@ coverage/
 firmware/stock/**
 !firmware/stock/
 !firmware/stock/.gitkeep
+/Oppo_F1S_A1601_MT6750_EX_11_A.15_160913/
