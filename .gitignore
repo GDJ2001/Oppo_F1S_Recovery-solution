@@ -62,3 +62,8 @@ coverage/
 !tools/**/
 !tools/**/*.md
 !tools/**/.gitkeep
+
+# Extracted local stock firmware packages
+firmware/stock/**
+!firmware/stock/
+!firmware/stock/.gitkeep
