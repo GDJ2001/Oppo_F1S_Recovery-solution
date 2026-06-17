@@ -60,6 +60,27 @@ Run without `-WhatIf` from an Administrator PowerShell window to install the ext
 
 ## Official A1601 Recovery OTA
 
+### A.41
+
+- Source: OPPO-hosted S3 firmware bucket
+- URL: `http://downloads.oppo.com.s3.amazonaws.com/firmware/A1601/A1601EX_11_OTA_041_all_201912261125.zip`
+- Local path: `firmware\ota\A1601EX_11_OTA_041_all_201912261125.zip`
+- Size: `1556852704` bytes
+- SHA-256: `182EBD484B0CA85B176A10378BE2442EB0685E79AAE1523C8088C0452237F023`
+- OTA metadata:
+  - `ota-id=A1601EX_11.A.41_INT_041_201912261125`
+  - `version_name=A1601EX_11_A.41_191226`
+  - `pre-device=A1601`
+  - `wipe=0`
+
+Validate it with:
+
+```powershell
+.\scripts\powershell\Test-A1601OtaPackage.ps1 -OtaPath firmware\ota\A1601EX_11_OTA_041_all_201912261125.zip
+```
+
+### A.40
+
 - Source: OPPO-hosted S3 firmware bucket
 - URL: `http://downloads.oppo.com.s3.amazonaws.com/firmware/A1601/A1601EX_11_OTA_040_all_201907091708.zip`
 - Local path: `firmware\ota\A1601EX_11_OTA_040_all_201907091708.zip`
