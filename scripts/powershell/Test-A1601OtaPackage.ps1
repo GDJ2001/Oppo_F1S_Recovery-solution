@@ -78,7 +78,10 @@ else {
 
         if ($metadataText) {
             $result.metadata = Convert-Metadata -Text $metadataText
-            $result.targetsA1601 = $result.metadata["pre-device"] -eq "A1601"
+            $result.targetsA1601 = $result.metadata["pre-device"] -eq "A1601" `
+                -or $result.metadata["ota-id"] -match "^A1601EX_11\." `
+                -or $result.metadata["ota_version"] -match "^A1601EX_11\." `
+                -or $result.metadata["version_name"] -match "^A1601EX_11_"
         }
         else {
             $result.warnings += "Missing META-INF/com/android/metadata."

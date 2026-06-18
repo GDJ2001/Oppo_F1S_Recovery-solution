@@ -16,6 +16,20 @@ The older scatter package in this repo is `A1601EX_11_A.15_160913`. It targets t
 
 ## Downloaded Official OTA Packages
 
+### D.01 Wipe Package - Current Branch Recovery Candidate
+
+- Source: OPPO-hosted S3 firmware bucket
+- URL: `http://downloads.oppo.com.s3.amazonaws.com/firmware/A1601%206.0/A1601EX_11_OTA_001_all_201703281552_wipe.zip`
+- Local path: `firmware\ota\A1601EX_11_OTA_001_all_201703281552_wipe.zip`
+- Size: `1581433299` bytes
+- SHA-256: `4B1729DB654B4705C5AAA64129B688546F4152875B7D41F8AD49EB19E09DB748`
+- MD5: `50A2097A0D423ED314B319ED0A7FA452`
+- Metadata `version_name`: `A1601EX_11_D.01_170328`
+- Metadata `ota-id`: `A1601EX_11.D.01_INT_001_201703281552`
+- Metadata `wipe`: `1`
+- Metadata `wipe-data`: `1`
+- Result: not yet installed. This is a data-wiping recovery package and should only be selected after the user accepts data loss.
+
 ### A.41 - Recommended Official Recovery Candidate
 
 - Source: OPPO-hosted S3 firmware bucket
@@ -49,6 +63,6 @@ Validate an OTA with:
 
 ## Recovery Use
 
-For a working phone that can enter stock recovery, use the newest official OPPO-hosted recovery OTA first. `A.41_191226` is newer than `A.40_190709` and is the latest OPPO-hosted A1601 OTA found so far. Public records mention `A.42_210906`, but I did not find an official OPPO-hosted recovery OTA URL for that build; those files currently appear on third-party firmware sites.
+For a working phone that can enter stock recovery, use the newest official OPPO-hosted recovery OTA first. `A.41_191226` is newer than `A.40_190709`, but the phone rejected both because its installed branch/version compares higher. The D.01 wipe package matches the phone's reported `A1601EX_11_D.01_170328` branch and is the next stock-recovery candidate, but it wipes data. Public records mention `A.42_210906`, but I did not find an official OPPO-hosted recovery OTA URL for that build; those files currently appear on third-party firmware sites.
 
 Important: the updater script writes boot, modem, loader, trustzone, and preloader images. Do not interrupt the update. Keep the battery charged and use the stock recovery/local update method only if the phone model is confirmed as `A1601`.
