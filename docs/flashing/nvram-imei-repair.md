@@ -5,21 +5,22 @@ The Wi-Fi network name `NVRAM WARNING: Err = 0x10` and a missing IMEI usually in
 ## Current Local State
 
 - Existing full scatter firmware: `A1601EX_11_A.15_160913`
-- Preferred full scatter firmware: `A1601EX_11_A.41_191226` or `A1601EX_11_A.42_210906`
+- Downloaded preferred firmware: `A1601EX_11_A.41_191226`
+- Downloaded A.41 firmware type: OPPO `.ofp` service package, not a loose SP Flash Tool scatter package
 - SN Write Tool archive: `tools\sn-write-tool\SN_Write_Tool_v1.2020.00.zip`
 - SN Write executable: `tools\sn-write-tool\SN_Write_Tool_v1.2020.00\SN_Write_Tool_v1.2020.00\SN_Writer.exe`
 - Important trust note: `SN_Writer.exe` is not Authenticode-signed.
 
 ## Firmware Requirement
 
-Use a complete A1601 scatter/service firmware package. A valid package must include:
+Use a complete A1601 scatter/service firmware package. A valid loose scatter package must include:
 
 - `MT6750_Android_scatter.txt`
 - boot/system/modem images referenced by the scatter
 - AP database file, commonly named like `*_database_AP`
 - MD/BPLGU database file, commonly named like `*_database` or `BPLGU*`
 
-The already extracted A.15 package has the required AP/MD database files, but it is old. Prefer a complete A.41/A.42 full package before flashing.
+The downloaded A.41 package includes `oppo6750_15331.ofp`, `DownloadTool.exe`, and A.41 AP/MD database files. Use OPPO DownloadTool for this package. The already extracted A.15 package has a scatter and AP/MD database files, but it is old.
 
 Known indexed candidates:
 
@@ -31,19 +32,28 @@ Known indexed candidates:
 
 ## Workflow
 
-1. Validate the full scatter firmware:
+1. For the downloaded A.41 OFP package, validate and open OPPO DownloadTool:
+
+   ```powershell
+   .\scripts\powershell\Start-OppoDownloadTool.ps1 -ValidateOnly
+   .\scripts\powershell\Start-OppoDownloadTool.ps1
+   ```
+
+   Power the phone off before connecting it for the actual flash. The phone must appear as MediaTek preloader/VCOM, not normal MTP.
+
+2. For a loose scatter package, validate the full scatter firmware:
 
    ```powershell
    .\scripts\powershell\Test-F1sFirmwarePackage.ps1 -FirmwareDir "firmware\stock\<package>\Firmware"
    ```
 
-2. Confirm SP Flash readiness:
+3. Confirm SP Flash readiness:
 
    ```powershell
    .\scripts\powershell\Get-FlashingReadiness.ps1
    ```
 
-3. Flash the complete firmware using SP Flash Tool GUI:
+4. Flash a loose scatter package using SP Flash Tool GUI:
 
    ```powershell
    .\scripts\powershell\Start-SpFlashTool.ps1 -FirmwareDir "firmware\stock\<package>\Firmware"
@@ -51,18 +61,18 @@ Known indexed candidates:
 
    Use `Download Only` first. Leave `preloader` unchecked unless the package is confirmed exact for the A1601 hardware variant or the device is hard-bricked.
 
-4. Boot Android and confirm baseband is present.
+5. Boot Android and confirm baseband is present.
 
-5. Check NVRAM repair readiness:
+6. Check NVRAM repair readiness:
 
    ```powershell
-   .\scripts\powershell\Get-NvramRepairReadiness.ps1 -FirmwareDir "firmware\stock\<package>\Firmware"
+   .\scripts\powershell\Get-NvramRepairReadiness.ps1 -FirmwareDir "firmware\stock\A1601EX_11_A.41_191226_RepairMyMobile\A1601EX_11_A.41_191226_RMM"
    ```
 
-6. Start SN Write Tool:
+7. Start SN Write Tool:
 
    ```powershell
-   .\scripts\powershell\Start-SnWriteTool.ps1 -FirmwareDir "firmware\stock\<package>\Firmware"
+   .\scripts\powershell\Start-SnWriteTool.ps1 -FirmwareDir "firmware\stock\A1601EX_11_A.41_191226_RepairMyMobile\A1601EX_11_A.41_191226_RMM"
    ```
 
    The helper copies AP/MD database paths to the clipboard. In SN Write Tool, select the copied AP/MD database files and enter only the phone's original IMEI from its box, sticker, receipt, SIM tray label, or carrier paperwork.

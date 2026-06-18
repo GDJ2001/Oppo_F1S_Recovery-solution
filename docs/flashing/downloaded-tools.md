@@ -69,9 +69,31 @@ Run without `-WhatIf` from an Administrator PowerShell window to install the ext
 - AP database: `firmware\stock\Oppo_F1S_A1601_MT6750_EX_11_A.15_160913\Firmware\A1601EX_11_A.15_160913_database_AP`
 - MD database: `firmware\stock\Oppo_F1S_A1601_MT6750_EX_11_A.15_160913\Firmware\A1601EX_11_A.15_160913_database`
 
-## Newer Full Scatter Firmware Candidates
+## Newer Full Firmware Candidates
 
-These were researched for NVRAM/IMEI repair. They are not yet validated locally because a complete newer scatter archive has not been successfully downloaded.
+These were researched for NVRAM/IMEI repair. A complete A.41 archive was later downloaded manually from MediaFire. It is an OPPO OFP service package, not a loose SP Flash Tool scatter package.
+
+### A.41 OFP Service Package
+
+- Source page: `https://www.mediafire.com/file/yqv6384bdlge4l7/OPPO-F1S-A1601EX_11_A.41_191226_RepairMyMobile.zip/file`
+- Local outer ZIP: `firmware\downloads\OPPO-F1S-A1601EX_11_A.41_191226_RepairMyMobile.zip`
+- Outer ZIP size: `1753001305` bytes
+- Outer ZIP SHA-256: `DFAB4FD94C00B6C8ADF425E1C7FE60623DB5F1F9A91A1A429EB6F795F7B5E755`
+- Inner ZIP: `firmware\stock\A1601EX_11_A.41_191226_RepairMyMobile\A1601EX_11_A.41_191226_RMM.zip`
+- Inner ZIP SHA-256: `D073298EA15DBCBA664D2C7F32603E30BCED54D2C3F6F2303EA5505C9A446DC5`
+- Extracted OFP: `firmware\stock\A1601EX_11_A.41_191226_RepairMyMobile\A1601EX_11_A.41_191226_RMM\oppo6750_15331.ofp`
+- OFP SHA-256: `F390361C228F27BE68C3E69C6A291EAAEE7C1DE9A22F7BDA8364541C554B7FDE`
+- OPPO DownloadTool: `firmware\stock\A1601EX_11_A.41_191226_RepairMyMobile\A1601EX_11_A.41_191226_RMM\DownloadTool.exe`
+- DownloadTool SHA-256: `0A037394E0EA0181AB208C3C108B5C6981E921A3E5F2B1D365481060FCC854DD`
+- AP database: `firmware\stock\A1601EX_11_A.41_191226_RepairMyMobile\A1601EX_11_A.41_191226_RMM\A1601EX_11_A.41_191226_database_AP`
+- MD database: `firmware\stock\A1601EX_11_A.41_191226_RepairMyMobile\A1601EX_11_A.41_191226_RMM\A1601EX_11_A.41_191226_database`
+- Trust note: `DownloadTool.exe` is not Authenticode-signed.
+
+Launch the OFP tool with:
+
+```powershell
+.\scripts\powershell\Start-OppoDownloadTool.ps1
+```
 
 | Candidate | Public index | Status |
 | --- | --- | --- |
