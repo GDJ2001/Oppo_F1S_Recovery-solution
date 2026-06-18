@@ -1,0 +1,312 @@
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - generic [ref=e3]:
+    - banner [ref=e5]:
+      - generic [ref=e9]:
+        - img [ref=e11]
+        - button "Select language" [ref=e15]:
+          - img [ref=e16]
+          - generic [ref=e19]: English
+          - img [ref=e20]
+        - link "Help Center" [ref=e24] [cursor=pointer]:
+          - /url: /faq
+        - button [disabled]
+      - generic [ref=e26]:
+        - link "Filewale" [ref=e27] [cursor=pointer]:
+          - /url: /
+          - img "Filewale" [ref=e28]
+        - generic [ref=e32]:
+          - img
+          - searchbox "Search" [ref=e33]
+        - generic [ref=e34]:
+          - button "Cart (0 items)" [ref=e35]:
+            - img [ref=e36]
+          - link "Sign in" [ref=e40] [cursor=pointer]:
+            - /url: /login
+            - button "Sign in" [ref=e41]
+      - navigation [ref=e42]:
+        - generic [ref=e44]:
+          - link "Home" [ref=e46] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e47]: Home
+          - link "Recent Files" [ref=e49] [cursor=pointer]:
+            - /url: /recent-files
+            - generic [ref=e50]: Recent Files
+          - link "Subscription" [ref=e52] [cursor=pointer]:
+            - /url: /subscriptions
+            - generic [ref=e53]: Subscription
+          - link "Contact Us" [ref=e55] [cursor=pointer]:
+            - /url: /contact
+            - generic [ref=e56]: Contact Us
+          - link "Request Item" [ref=e58] [cursor=pointer]:
+            - /url: /request-item
+            - generic [ref=e59]: Request Item
+    - main [ref=e62]:
+      - article [ref=e63]:
+        - heading "Oppo F1s A1601EX_11_A.42_210906.zip" [level=1] [ref=e64]
+        - paragraph [ref=e65]: Download Oppo F1s A1601 Flash File/Stock ROM
+      - generic [ref=e67]:
+        - navigation "Breadcrumb" [ref=e68]:
+          - link "Home" [ref=e69] [cursor=pointer]:
+            - /url: /files
+          - img [ref=e70]
+          - link "Firmware (Major)" [ref=e72] [cursor=pointer]:
+            - /url: /folders/firmware-major/1
+          - img [ref=e73]
+          - link "Oppo" [ref=e75] [cursor=pointer]:
+            - /url: /folders/oppo-1/14979
+          - img [ref=e76]
+          - link "Oppo Firmware" [ref=e78] [cursor=pointer]:
+            - /url: /folders/oppo-firmware/2
+          - img [ref=e79]
+          - link "A1601" [ref=e81] [cursor=pointer]:
+            - /url: /folders/a1601/979
+          - img [ref=e82]
+          - generic [ref=e84]: Oppo F1s A1601EX_11_A.42_210906.zip
+        - generic [ref=e85]:
+          - generic [ref=e86]:
+            - generic [ref=e88]:
+              - generic [ref=e89]:
+                - img "Oppo F1s A1601EX_11_A.42_210906.zip" [ref=e91]
+                - generic [ref=e92]:
+                  - heading "Oppo F1s A1601EX_11_A.42_210906.zip" [level=1] [ref=e93]
+                  - paragraph [ref=e94]: Download Oppo F1s A1601 Flash File/Stock ROM
+                  - generic [ref=e95]:
+                    - link "Download Oppo F1s A1601 Flash File/Stock ROM" [ref=e96] [cursor=pointer]:
+                      - /url: /files/tag/Download%20Oppo%20F1s%20A1601%20Flash%20File%2FStock%20ROM
+                      - img [ref=e97]
+                      - text: Download Oppo F1s A1601 Flash File/Stock ROM
+                    - link "Oppo F1s A1601 Flash File/Stock ROM" [ref=e100] [cursor=pointer]:
+                      - /url: /files/tag/Oppo%20F1s%20A1601%20Flash%20File%2FStock%20ROM
+                      - img [ref=e101]
+                      - text: Oppo F1s A1601 Flash File/Stock ROM
+              - generic [ref=e104]:
+                - button "Download File" [ref=e105] [cursor=pointer]:
+                  - img [ref=e106]
+                  - text: Download File
+                - button "Share" [ref=e109] [cursor=pointer]:
+                  - img [ref=e110]
+                  - text: Share
+            - generic [ref=e116]:
+              - heading "Description" [level=2] [ref=e117]
+              - generic [ref=e119]: Download Oppo F1s A1601 Flash File/Stock ROM
+            - generic [ref=e120]:
+              - generic [ref=e121]:
+                - heading "Reviews" [level=2] [ref=e122]:
+                  - img [ref=e123]
+                  - text: Reviews
+                - button "Sign in to add review" [ref=e125] [cursor=pointer]
+              - generic [ref=e127]:
+                - generic [ref=e128]:
+                  - img [ref=e129]
+                  - img [ref=e131]
+                - paragraph [ref=e134]: No reviews yet.
+                - paragraph [ref=e135]: Be the first to review this file!
+          - generic [ref=e136]:
+            - generic [ref=e137]:
+              - heading "File Information" [level=3] [ref=e138]:
+                - img [ref=e139]
+                - text: File Information
+              - generic [ref=e142]:
+                - img [ref=e143]
+                - text: Featured
+              - generic [ref=e146]:
+                - generic [ref=e147]:
+                  - generic [ref=e148]:
+                    - img [ref=e149]
+                    - text: Reviews
+                  - generic [ref=e152]:
+                    - generic [ref=e153]:
+                      - img [ref=e154]
+                      - img [ref=e156]
+                      - img [ref=e158]
+                      - img [ref=e160]
+                      - img [ref=e162]
+                    - generic [ref=e164]: 0.0 / 5
+                    - generic [ref=e165]: 0 reviews
+                - generic [ref=e166]:
+                  - generic [ref=e167]:
+                    - img [ref=e168]
+                    - text: Downloads
+                  - generic [ref=e171]: "13"
+                - generic [ref=e172]:
+                  - generic [ref=e173]:
+                    - img [ref=e174]
+                    - text: Total visits
+                  - generic [ref=e177]: "39"
+                - generic [ref=e178]:
+                  - generic [ref=e179]:
+                    - img [ref=e180]
+                    - text: File size
+                  - generic [ref=e182]: 1.63 GB
+                - generic [ref=e183]:
+                  - generic [ref=e184]:
+                    - img [ref=e185]
+                    - text: Uploaded
+                  - generic [ref=e187]: Mar 7, 2026
+                - generic [ref=e188]:
+                  - generic [ref=e189]:
+                    - img [ref=e190]
+                    - text: Last Updated
+                  - generic [ref=e193]: Jun 15, 2026
+            - generic [ref=e195]:
+              - img [ref=e197]
+              - generic [ref=e200]:
+                - heading "Virus Scanned" [level=3] [ref=e201]
+                - paragraph [ref=e202]: This file is safe to download. Scanned by our security systems.
+            - generic [ref=e203]:
+              - generic [ref=e204]:
+                - img [ref=e206]
+                - generic [ref=e209]:
+                  - heading "Need Help?" [level=3] [ref=e210]
+                  - paragraph [ref=e211]: Can't distinguish the right file? Our experts can help.
+              - link "Contact Support" [ref=e212] [cursor=pointer]:
+                - /url: /contact
+                - button "Contact Support" [ref=e213]:
+                  - text: Contact Support
+                  - img
+    - contentinfo [ref=e214]:
+      - generic [ref=e215]:
+        - generic [ref=e216]:
+          - generic [ref=e217]:
+            - link "Filewale" [ref=e218] [cursor=pointer]:
+              - /url: /
+              - img "Filewale" [ref=e219]
+            - paragraph [ref=e220]: Welcome to Filewale , your one-stop destination for firmware and flash files. Our website is designed to provide you with a hassle-free experience and make it easy for you to find and download the firmware or flash file you need.
+            - generic [ref=e221]:
+              - paragraph [ref=e222]: Newsletter
+              - paragraph [ref=e223]: Get product drops, offers, and updates in your inbox.
+              - generic [ref=e224]:
+                - generic [ref=e225]: Email for newsletter
+                - textbox "Email for newsletter" [ref=e226]:
+                  - /placeholder: you@example.com
+                - button "Join" [ref=e227]
+              - paragraph [ref=e228]: You can unsubscribe anytime.
+            - generic [ref=e229]:
+              - link "Facebook" [ref=e230] [cursor=pointer]:
+                - /url: https://www.facebook.com/Filewale
+                - img [ref=e231]
+              - link [ref=e233] [cursor=pointer]:
+                - /url: mailto:support@filewale.com
+                - img [ref=e234]
+          - generic [ref=e237]:
+            - generic [ref=e238]:
+              - heading "Shop" [level=4] [ref=e239]
+              - list [ref=e240]:
+                - listitem [ref=e241]:
+                  - link "All Products" [ref=e242] [cursor=pointer]:
+                    - /url: /shop
+                - listitem [ref=e243]:
+                  - link "Packages & Pricing" [ref=e244] [cursor=pointer]:
+                    - /url: /subscriptions
+                - listitem [ref=e245]:
+                  - link "Firmware & Files" [ref=e246] [cursor=pointer]:
+                    - /url: /files
+                - listitem [ref=e247]:
+                  - link "Digital Products & Activations" [ref=e248] [cursor=pointer]:
+                    - /url: /products/digital
+                - listitem [ref=e249]:
+                  - link "Physical Products" [ref=e250] [cursor=pointer]:
+                    - /url: /products/physical
+                - listitem [ref=e251]:
+                  - link "Services" [ref=e252] [cursor=pointer]:
+                    - /url: /services
+                - listitem [ref=e253]:
+                  - link "Courses" [ref=e254] [cursor=pointer]:
+                    - /url: /courses
+            - generic [ref=e255]:
+              - heading "Company" [level=4] [ref=e256]
+              - list [ref=e257]:
+                - listitem [ref=e258]:
+                  - link "Recent Files" [ref=e259] [cursor=pointer]:
+                    - /url: /recent-files
+                - listitem [ref=e260]:
+                  - link "Paid Files" [ref=e261] [cursor=pointer]:
+                    - /url: /paid-files
+                - listitem [ref=e262]:
+                  - link "Free Files" [ref=e263] [cursor=pointer]:
+                    - /url: /free-files
+                - listitem [ref=e264]:
+                  - link "About Us" [ref=e265] [cursor=pointer]:
+                    - /url: /about
+                - listitem [ref=e266]:
+                  - link "Careers" [ref=e267] [cursor=pointer]:
+                    - /url: /careers
+                - listitem [ref=e268]:
+                  - link "Reviews" [ref=e269] [cursor=pointer]:
+                    - /url: /reviews
+                - listitem [ref=e270]:
+                  - link "Blog" [ref=e271] [cursor=pointer]:
+                    - /url: /blog
+            - generic [ref=e272]:
+              - heading "Support" [level=4] [ref=e273]
+              - list [ref=e274]:
+                - listitem [ref=e275]:
+                  - link "Request Item" [ref=e276] [cursor=pointer]:
+                    - /url: /request-item
+                - listitem [ref=e277]:
+                  - link "Contact Us" [ref=e278] [cursor=pointer]:
+                    - /url: /contact
+                - listitem [ref=e279]:
+                  - link "Help Center (FAQ)" [ref=e280] [cursor=pointer]:
+                    - /url: /faq
+                - listitem [ref=e281]:
+                  - link "Track Order" [ref=e282] [cursor=pointer]:
+                    - /url: /track-order
+                - listitem [ref=e283]:
+                  - link "Refund Policy" [ref=e284] [cursor=pointer]:
+                    - /url: /refund-policy
+            - generic [ref=e285]:
+              - heading "Account" [level=4] [ref=e286]
+              - list [ref=e287]:
+                - listitem [ref=e288]:
+                  - link "Dashboard" [ref=e289] [cursor=pointer]:
+                    - /url: /dashboard
+                - listitem [ref=e290]:
+                  - link "My Orders" [ref=e291] [cursor=pointer]:
+                    - /url: /dashboard/orders
+                - listitem [ref=e292]:
+                  - link "Wishlist" [ref=e293] [cursor=pointer]:
+                    - /url: /wishlist
+                - listitem [ref=e294]:
+                  - link "Wallet" [ref=e295] [cursor=pointer]:
+                    - /url: /dashboard/wallet
+                - listitem [ref=e296]:
+                  - link "My Downloads" [ref=e297] [cursor=pointer]:
+                    - /url: /dashboard/downloads
+        - generic [ref=e299]:
+          - paragraph [ref=e300]: © 2026 DC Mobile solution.
+          - generic [ref=e301]:
+            - generic [ref=e302]:
+              - generic [ref=e303]: "Currency:"
+              - img [ref=e305]
+            - generic [ref=e308]:
+              - link "Terms of Service" [ref=e309] [cursor=pointer]:
+                - /url: /terms
+              - link "Privacy Policy" [ref=e310] [cursor=pointer]:
+                - /url: /privacy
+              - link "Cookies" [ref=e311] [cursor=pointer]:
+                - /url: /cookies
+              - link "Powered by ShadowGrow.com" [ref=e312] [cursor=pointer]:
+                - /url: https://shadowgrow.com/?utm_source=unknown&utm_medium=footer&utm_campaign=powered_by
+      - note [ref=e313]: Sharing the file with any other person or distributing it on any website or social media platform is strictly prohibited. Any user found violating this policy will have their account permanently blocked, and no refunds will be provided by the admin.
+  - navigation "Social links" [ref=e314]:
+    - list [ref=e315]:
+      - listitem [ref=e316]:
+        - link "WhatsApp" [ref=e317] [cursor=pointer]:
+          - /url: https://whatsapp.com/channel/0029VaA05Xd77qVMT7Wx3K2c
+          - img [ref=e318]
+      - listitem [ref=e320]:
+        - link "Telegram" [ref=e321] [cursor=pointer]:
+          - /url: https://t.me/filewale_official
+          - img [ref=e322]
+      - listitem [ref=e324]:
+        - link "Facebook" [ref=e325] [cursor=pointer]:
+          - /url: https://www.facebook.com/Filewale
+          - img [ref=e326]
+      - listitem [ref=e328]:
+        - link "YouTube" [ref=e329] [cursor=pointer]:
+          - /url: https://www.youtube.com/@Filewale1
+          - img [ref=e330]
+  - region "Notifications alt+T"
