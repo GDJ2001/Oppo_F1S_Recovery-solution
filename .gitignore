@@ -40,6 +40,9 @@ coverage/
 *.tar
 *.tar.gz
 *.tgz
+*.download
+*.partial
+*.partial.invalid
 
 # Driver installers and third-party tool binaries
 *.exe

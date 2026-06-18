@@ -60,6 +60,10 @@ Use the GUI path for the first flash. This SP Flash Tool package includes comman
 
 Before pressing `Download`, review the selected partitions. For a lower-risk restore, consider leaving `preloader` unchecked unless the device is already hard-bricked or you have confirmed the package exactly matches the A1601 variant.
 
+For the current NVRAM/IMEI issue, prefer a complete newer A.41/A.42 scatter/service firmware package before using the local A.15 package. The local A.15 package is useful as a fallback and for SN Write AP/MD database discovery, but it is older than the phone's current reported branch.
+
+After the firmware flash, use `docs\flashing\nvram-imei-repair.md` for the original-IMEI restoration workflow.
+
 ## Safety Notes
 
 - Flashing `userdata` wipes data.

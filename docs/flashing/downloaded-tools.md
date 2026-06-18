@@ -51,12 +51,34 @@ Run without `-WhatIf` from an Administrator PowerShell window to install the ext
 - `flash_tool.exe` SHA-256: `67E9EB48161087D43ECA845B2DC0E9BEACAC3C0381BD1CE7989D48B17E2084A7`
 - Trust note: no public official MediaTek download page was found. The ZIP hash matched the mirror's published SHA-256, but `flash_tool.exe` is not Authenticode-signed.
 
+## SN Write Tool
+
+- Source page: `https://snwritetool.com/download/sn-write-tool-v1-2020`
+- Local ZIP: `tools\sn-write-tool\SN_Write_Tool_v1.2020.00.zip`
+- Extracted executable: `tools\sn-write-tool\SN_Write_Tool_v1.2020.00\SN_Write_Tool_v1.2020.00\SN_Writer.exe`
+- ZIP SHA-256: `95BFC781E17B6AE4803340CD1D1E5B903B0F6BF82CC97170DFF7F8BCBDFDD65E`
+- Trust note: `SN_Writer.exe` is not Authenticode-signed. Use only if you accept that mirror/tool risk.
+- Safety note: this workflow is only for restoring the phone's original IMEI from its legitimate label/box/paperwork. Do not generate or substitute identifiers.
+
 ## Local Firmware
 
 - Firmware archive: `Oppo_F1S_A1601_MT6750_EX_11_A.15_160913.zip`
 - Firmware archive SHA-256: `A43CBA48ADC6DECC1E68D440D7D25F2E877972CB41CFA49896608410FD89E200`
 - Extracted firmware directory: `firmware\stock\Oppo_F1S_A1601_MT6750_EX_11_A.15_160913\Firmware`
 - Scatter file: `firmware\stock\Oppo_F1S_A1601_MT6750_EX_11_A.15_160913\Firmware\MT6750_Android_scatter.txt`
+- AP database: `firmware\stock\Oppo_F1S_A1601_MT6750_EX_11_A.15_160913\Firmware\A1601EX_11_A.15_160913_database_AP`
+- MD database: `firmware\stock\Oppo_F1S_A1601_MT6750_EX_11_A.15_160913\Firmware\A1601EX_11_A.15_160913_database`
+
+## Newer Full Scatter Firmware Candidates
+
+These were researched for NVRAM/IMEI repair. They are not yet validated locally because a complete newer scatter archive has not been successfully downloaded.
+
+| Candidate | Public index | Status |
+| --- | --- | --- |
+| `A1601EX_11_A.42_210906.zip` | Filewale, GB Firmware, HalabTech | Listed as 1.63 GB full firmware; public download routes inspected so far require login/account or are not direct. |
+| `OPPO-F1S-A1601EX_11_A.41_191226_filewale.com.7z` | Filewale | Listed as 1.37 GB; API download route requires account authorization. |
+| `OPPO-F1S-A1601EX_11_A.41_191226_RepairMyMobile.zip` | RepairMyMobile / MediaFire | Direct MediaFire URL resolved and reports `1753001305` bytes, but two transfers stalled/reset at `71417856` and `69582848` bytes. Partial files are not valid. |
+| `A1601EX_11_A.41_191226.tar.bz2` | AhmadServiceCenter / HalabTech style mirrors | Listed as a full package; mirror works but was too slow for a complete download in this session. |
 
 ## Official A1601 Recovery OTA
 

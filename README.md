@@ -26,3 +26,4 @@ Repository scaffold for a recovery utility targeting the OPPO F1s. The layout se
 - Store checksums and source links in `firmware/checksums/` or folder README files instead of committing large packages.
 - Keep device-specific assumptions in `config/devices/` so the recovery workflow can be reviewed and updated safely.
 - The current A1601 recovery OTA research and local package notes are in `docs/flashing/a1601-official-ota.md`.
+- Full firmware and NVRAM/original-IMEI repair notes are in `docs/flashing/nvram-imei-repair.md`.
