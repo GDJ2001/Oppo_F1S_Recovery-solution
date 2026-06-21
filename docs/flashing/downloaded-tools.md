@@ -1,147 +1,79 @@
-# Downloaded Flashing Tools
+# Downloaded Tools And Firmware
 
-This file records the local tools downloaded for the OPPO F1s A1601 flashing workflow.
+This file records the local OPPO F1s A1601 flashing assets.
 
-## Android Platform-Tools
+## Current Firmware In `firmware\stock`
 
-- Source: Google Android Developers platform-tools download
-- URL: `https://dl.google.com/android/repository/platform-tools-latest-windows.zip`
-- Local ZIP: `tools\adb-fastboot\platform-tools-latest-windows.zip`
-- Extracted directory: `tools\adb-fastboot\platform-tools`
-- Verified version:
-  - `adb.exe`: `Android Debug Bridge version 1.0.41`, `37.0.0-14910828`
-  - `fastboot.exe`: `37.0.0-14910828`
-- SHA-256: `4FE305812DB074CEA32903A489D061EB4454CBC90A49E8FEA677F4B7AF764918`
-- Trust note: official Google download.
-
-## MediaTek USB/VCOM Drivers
-
-- Source: Microsoft Update Catalog search for `MediaTek USB VCOM drivers`
-- Local directory: `drivers\mtk-usb`
-
-Downloaded CAB packages:
-
-| Package | Local path | SHA-256 |
-| --- | --- | --- |
-| MediaTek VCOM Windows 10 package | `drivers\mtk-usb\microsoft-mediatek-vcom-win10-2015.cab` | `CE72E97C07582AD41DEBFAEEE6F6284ECD28285DF5F9CAA05193653FB236561F` |
-| MediaTek Android interfaces Windows 7/8.1 package | `drivers\mtk-usb\microsoft-mediatek-android-interfaces-win7-win81-2016.cab` | `86C3909A00973B960C761AC9A7992DAE5158E4C22966C0A3D849A586C04C359A` |
-
-Direct Microsoft Catalog CAB URLs captured during download:
+User-provided A40 archive:
 
 ```text
-https://catalog.s.download.windowsupdate.com/d/msdownload/update/driver/drvs/2016/07/20896845_fdc6bb5aa9a9bac99adf85d931d6c21d1130a96e.cab
-https://catalog.s.download.windowsupdate.com/c/msdownload/update/driver/drvs/2016/08/20913465_17e56bbd9fe9351b9477154c0414ce86e21a42bb.cab
+firmware\stock\[up_addROM.com]_Oppo_F1S_A1601_EX_11_A.40_190709.zip
 ```
 
-Driver install helper:
+SHA-256:
 
-```powershell
-.\scripts\powershell\Install-MtkDrivers.ps1 -WhatIf
+```text
+443D86FD94E4C1AAFB090018E5E88DD024C0844BB0DB1316F7C7A3012C0F83FE
 ```
 
-Run without `-WhatIf` from an Administrator PowerShell window to install the extracted `.inf` files with `pnputil`.
+Extracted service-package directory:
 
-## SP Flash Tool
-
-- Source page: SoftPortal mirror for SP Flash Tool
-- Download URL captured from the mirror page: `https://9r80o7.soft-load.eu/b3/5/1/3653515c170dcbe41d009d48220d1c29/en-SP_Flash_Tool_v5.1924_Win.zip`
-- Local ZIP: `tools\sp-flash-tool\en-SP_Flash_Tool_v5.1924_Win.zip`
-- Extracted executable: `tools\sp-flash-tool\SP_Flash_Tool_v5.1924_Win\SP_Flash_Tool_v5.1924_Win\flash_tool.exe`
-- ZIP SHA-256: `90C6CC2C52D419B3442EBE0E6E020DF1BB12E4F26F00C0C8CD9394C39C6081D2`
-- `flash_tool.exe` SHA-256: `67E9EB48161087D43ECA845B2DC0E9BEACAC3C0381BD1CE7989D48B17E2084A7`
-- Trust note: no public official MediaTek download page was found. The ZIP hash matched the mirror's published SHA-256, but `flash_tool.exe` is not Authenticode-signed.
-
-## SN Write Tool
-
-- Source page: `https://snwritetool.com/download/sn-write-tool-v1-2020`
-- Local ZIP: `tools\sn-write-tool\SN_Write_Tool_v1.2020.00.zip`
-- Extracted executable: `tools\sn-write-tool\SN_Write_Tool_v1.2020.00\SN_Write_Tool_v1.2020.00\SN_Writer.exe`
-- ZIP SHA-256: `95BFC781E17B6AE4803340CD1D1E5B903B0F6BF82CC97170DFF7F8BCBDFDD65E`
-- Trust note: `SN_Writer.exe` is not Authenticode-signed. Use only if you accept that mirror/tool risk.
-- Safety note: this workflow is only for restoring the phone's original IMEI from its legitimate label/box/paperwork. Do not generate or substitute identifiers.
-
-## Local Firmware
-
-- Firmware archive: `Oppo_F1S_A1601_MT6750_EX_11_A.15_160913.zip`
-- Firmware archive SHA-256: `A43CBA48ADC6DECC1E68D440D7D25F2E877972CB41CFA49896608410FD89E200`
-- Extracted firmware directory: `firmware\stock\Oppo_F1S_A1601_MT6750_EX_11_A.15_160913\Firmware`
-- Scatter file: `firmware\stock\Oppo_F1S_A1601_MT6750_EX_11_A.15_160913\Firmware\MT6750_Android_scatter.txt`
-- AP database: `firmware\stock\Oppo_F1S_A1601_MT6750_EX_11_A.15_160913\Firmware\A1601EX_11_A.15_160913_database_AP`
-- MD database: `firmware\stock\Oppo_F1S_A1601_MT6750_EX_11_A.15_160913\Firmware\A1601EX_11_A.15_160913_database`
-
-## Newer Full Firmware Candidates
-
-These were researched for NVRAM/IMEI repair. A complete A.41 archive was later downloaded manually from MediaFire. It is an OPPO OFP service package, not a loose SP Flash Tool scatter package.
-
-### A.41 OFP Service Package
-
-- Source page: `https://www.mediafire.com/file/yqv6384bdlge4l7/OPPO-F1S-A1601EX_11_A.41_191226_RepairMyMobile.zip/file`
-- Local outer ZIP: `firmware\downloads\OPPO-F1S-A1601EX_11_A.41_191226_RepairMyMobile.zip`
-- Outer ZIP size: `1753001305` bytes
-- Outer ZIP SHA-256: `DFAB4FD94C00B6C8ADF425E1C7FE60623DB5F1F9A91A1A429EB6F795F7B5E755`
-- Inner ZIP: `firmware\stock\A1601EX_11_A.41_191226_RepairMyMobile\A1601EX_11_A.41_191226_RMM.zip`
-- Inner ZIP SHA-256: `D073298EA15DBCBA664D2C7F32603E30BCED54D2C3F6F2303EA5505C9A446DC5`
-- Extracted OFP: `firmware\stock\A1601EX_11_A.41_191226_RepairMyMobile\A1601EX_11_A.41_191226_RMM\oppo6750_15331.ofp`
-- OFP SHA-256: `F390361C228F27BE68C3E69C6A291EAAEE7C1DE9A22F7BDA8364541C554B7FDE`
-- OPPO DownloadTool: `firmware\stock\A1601EX_11_A.41_191226_RepairMyMobile\A1601EX_11_A.41_191226_RMM\DownloadTool.exe`
-- DownloadTool SHA-256: `0A037394E0EA0181AB208C3C108B5C6981E921A3E5F2B1D365481060FCC854DD`
-- AP database: `firmware\stock\A1601EX_11_A.41_191226_RepairMyMobile\A1601EX_11_A.41_191226_RMM\A1601EX_11_A.41_191226_database_AP`
-- MD database: `firmware\stock\A1601EX_11_A.41_191226_RepairMyMobile\A1601EX_11_A.41_191226_RMM\A1601EX_11_A.41_191226_database`
-- Trust note: `DownloadTool.exe` is not Authenticode-signed.
-
-Launch the OFP tool with:
-
-```powershell
-.\scripts\powershell\Start-OppoDownloadTool.ps1
+```text
+firmware\stock\Firmware + Tool
 ```
 
-| Candidate | Public index | Status |
-| --- | --- | --- |
-| `A1601EX_11_A.42_210906.zip` | Filewale, GB Firmware, HalabTech | Listed as 1.63 GB full firmware; public download routes inspected so far require login/account or are not direct. |
-| `OPPO-F1S-A1601EX_11_A.41_191226_filewale.com.7z` | Filewale | Listed as 1.37 GB; API download route requires account authorization. |
-| `OPPO-F1S-A1601EX_11_A.41_191226_RepairMyMobile.zip` | RepairMyMobile / MediaFire | Direct MediaFire URL resolved and reports `1753001305` bytes, but two transfers stalled/reset at `71417856` and `69582848` bytes. Partial files are not valid. |
-| `A1601EX_11_A.41_191226.tar.bz2` | AhmadServiceCenter / HalabTech style mirrors | Listed as a full package; mirror works but was too slow for a complete download in this session. |
+Contents found:
 
-## Official A1601 Recovery OTA
-
-### A.41
-
-- Source: OPPO-hosted S3 firmware bucket
-- URL: `http://downloads.oppo.com.s3.amazonaws.com/firmware/A1601/A1601EX_11_OTA_041_all_201912261125.zip`
-- Local path: `firmware\ota\A1601EX_11_OTA_041_all_201912261125.zip`
-- Size: `1556852704` bytes
-- SHA-256: `182EBD484B0CA85B176A10378BE2442EB0685E79AAE1523C8088C0452237F023`
-- OTA metadata:
-  - `ota-id=A1601EX_11.A.41_INT_041_201912261125`
-  - `version_name=A1601EX_11_A.41_191226`
-  - `pre-device=A1601`
-  - `wipe=0`
-
-Validate it with:
-
-```powershell
-.\scripts\powershell\Test-A1601OtaPackage.ps1 -OtaPath firmware\ota\A1601EX_11_OTA_041_all_201912261125.zip
+```text
+A1601EX_11_A.40_190709_database
+A1601EX_11_A.40_190709_database_AP
+DownloadTool.exe
+oppo6750_15331.ofp
 ```
 
-### A.40
+Important hashes:
 
-- Source: OPPO-hosted S3 firmware bucket
-- URL: `http://downloads.oppo.com.s3.amazonaws.com/firmware/A1601/A1601EX_11_OTA_040_all_201907091708.zip`
-- Local path: `firmware\ota\A1601EX_11_OTA_040_all_201907091708.zip`
-- Size: `1556821800` bytes
-- SHA-256: `A42F3004B6628B74A3B115B6F9F72A0E49FE6FFAC710183ECD6F7C8C3847A71B`
-- OTA metadata:
-  - `ota-id=A1601EX_11.A.40_INT_040_201907091708`
-  - `version_name=A1601EX_11_A.40_190709`
-  - `pre-device=A1601`
-  - `wipe=0`
-
-Validate it with:
-
-```powershell
-.\scripts\powershell\Test-A1601OtaPackage.ps1
+```text
+oppo6750_15331.ofp  FBD3CC8EBB421ADFA0D9C7D20E3BB6B6ABA03D9C64112DA79AA2143C4BF75DAC
+DownloadTool.exe    0A037394E0EA0181AB208C3C108B5C6981E921A3E5F2B1D365481060FCC854DD
 ```
 
-## Current Device State
+Status: rejected for this SP Flash workflow.
 
-Windows currently detects the phone as `OPPO A1601` over normal USB/MTP. It is not currently visible as a MediaTek preloader/VCOM flashing device. For SP Flash Tool, power the phone off and reconnect it in preloader mode after installing the MTK drivers.
+Reason:
+
+- no `MT6750_Android_scatter.txt`
+- no loose partition image files for SP Flash Tool
+- contains `oppo6750_15331.ofp`
+- contains `DownloadTool.exe`
+
+The package may be an OPPO service/OFP firmware package, but this repo will not unpack or modify `DownloadTool.exe` to remove login or authorization checks.
+
+## Required For Flashing
+
+The required target remains a loose scatter package:
+
+```text
+firmware\stock\A1601EX_11_A.40_190709\Firmware\MT6750_Android_scatter.txt
+```
+
+That directory must also contain all scatter-referenced image files with nonzero size plus matching AP/MD database files.
+
+## Required Tools
+
+At least one of these must exist under `tools`:
+
+```text
+tools\SP_Flash_Tool_V6*\**\SPFlashToolV6.exe
+tools\sp-flash-tool\**\flash_tool.exe
+tools\SP_MDT*\**\mdt.exe
+```
+
+SN Write Tool is needed after firmware flashing to restore only the phone's original IMEI manually:
+
+```text
+tools\SN_Write_Tool_v*\**\SN_Writer.exe
+tools\sn-write-tool\**\SN_Writer.exe
+```
+
+Do not store IMEI values in this repository.

@@ -11,78 +11,54 @@ function Resolve-RepoRoot {
     return Split-Path -Parent $path
 }
 
-function Find-FlashTool {
+function Find-FlashingTools {
     param([string]$RepoRoot)
-
-    $searchRoots = @(
-        (Join-Path $RepoRoot "tools\sp-flash-tool"),
-        (Join-Path $RepoRoot "firmware\stock")
-    )
-
-    foreach ($root in $searchRoots) {
-        if (-not (Test-Path -LiteralPath $root)) {
-            continue
-        }
-
-        $candidate = Get-ChildItem -LiteralPath $root -Recurse -File -ErrorAction SilentlyContinue |
-            Where-Object { $_.Name -match "^(flash_tool|SPFlashTool|flash_tool_console)\.exe$" } |
-            Select-Object -First 1
-
-        if ($candidate) {
-            return $candidate.FullName
-        }
-    }
-
-    return $null
+    $toolsRoot = Join-Path $RepoRoot "tools"
+    if (-not (Test-Path -LiteralPath $toolsRoot)) { return @() }
+    $namePattern = "^(flash_tool|flash_tool_console|SPFlashTool|SPFlashToolV6|SP_MDT|mdt|SPMultiPortDownload|SP_MultiportDownload|SPMultiPortFlashDownloadProject)\.exe$"
+    @(Get-ChildItem -LiteralPath $toolsRoot -Recurse -File -ErrorAction SilentlyContinue |
+        Where-Object { $_.Name -match $namePattern -and $_.FullName -notmatch "DownloadTool\.exe$" } |
+        ForEach-Object {
+            $kind = if ($_.Name -match "flash_tool|SPFlashTool") { "SP Flash Tool" } else { "SP MDT" }
+            $rank = if ($_.FullName -match "SP_Flash_Tool_V6|v6") { 1 } elseif ($_.FullName -match "sp-flash-tool|SP_Flash_Tool_v5|v5") { 2 } elseif ($kind -eq "SP Flash Tool") { 3 } else { 4 }
+            [pscustomobject]@{ Path = $_.FullName; Kind = $kind; Rank = $rank }
+        } | Sort-Object Rank, Path)
 }
 
 $repoRoot = Resolve-RepoRoot
 $validator = Join-Path $PSScriptRoot "Test-F1sFirmwarePackage.ps1"
-
-$validationArgs = @()
-if (-not [string]::IsNullOrWhiteSpace($FirmwareDir)) {
-    $validationArgs += "-FirmwareDir"
-    $validationArgs += $FirmwareDir
-}
+$validationArgs = @{}
+if (-not [string]::IsNullOrWhiteSpace($FirmwareDir)) { $validationArgs.FirmwareDir = $FirmwareDir }
 
 Write-Host "Validating firmware package..."
 & $validator @validationArgs
-if ($LASTEXITCODE -ne 0) {
-    throw "Firmware validation failed. Fix the package or path before opening SP Flash Tool."
-}
+if ($LASTEXITCODE -ne 0) { throw "Firmware validation failed. Use a complete loose scatter package before opening the flasher." }
 
-if ([string]::IsNullOrWhiteSpace($FirmwareDir)) {
-    $validation = (& $validator -Json | ConvertFrom-Json)
-}
-else {
-    $validation = (& $validator -FirmwareDir $FirmwareDir -Json | ConvertFrom-Json)
-}
+$validationArgs.Json = $true
+$validation = (& $validator @validationArgs | ConvertFrom-Json)
 $scatterPath = $validation.scatterPath
 
 if ([string]::IsNullOrWhiteSpace($FlashToolPath)) {
-    $FlashToolPath = Find-FlashTool -RepoRoot $repoRoot
+    $candidate = Find-FlashingTools -RepoRoot $repoRoot | Select-Object -First 1
+    if ($candidate) { $FlashToolPath = $candidate.Path }
 }
-
 if ([string]::IsNullOrWhiteSpace($FlashToolPath) -or -not (Test-Path -LiteralPath $FlashToolPath)) {
-    Write-Host ""
-    Write-Warning "SP Flash Tool executable was not found."
-    Write-Host "Place SP Flash Tool under:"
-    Write-Host "  $(Join-Path $repoRoot 'tools\sp-flash-tool')"
-    Write-Host ""
-    Write-Host "Then run this script again."
+    Write-Warning "No SP Flash Tool or SP MDT executable was found. DownloadTool.exe is intentionally not supported."
+    Write-Host "Expected:"
+    Write-Host "  $(Join-Path $repoRoot 'tools\SP_Flash_Tool_V6*\**\SPFlashToolV6.exe')"
+    Write-Host "  $(Join-Path $repoRoot 'tools\sp-flash-tool\**\flash_tool.exe')"
+    Write-Host "  $(Join-Path $repoRoot 'tools\SP_MDT*\**\mdt.exe')"
     exit 1
 }
 
+$toolName = Split-Path -Leaf $FlashToolPath
+$toolKind = if ($toolName -match "flash_tool|SPFlashTool") { "SP Flash Tool" } else { "SP MDT" }
 Set-Clipboard -Value $scatterPath
-Write-Host ""
-Write-Host "SP Flash Tool : $FlashToolPath"
+Write-Host "Flashing tool : $FlashToolPath"
+Write-Host "Tool type     : $toolKind"
 Write-Host "Scatter file  : $scatterPath"
 Write-Host "The scatter path has been copied to the clipboard."
-Write-Host ""
-Write-Warning "Use Download Only unless you intentionally need another mode. Flashing userdata wipes data. Flashing preloader can brick the phone if the package is wrong."
-
-if ($ValidateOnly) {
-    exit 0
-}
-
+Write-Warning "Use Download Only first. Avoid Format All + Download."
+Write-Warning "Leave preloader unchecked unless exact A1601 hardware is confirmed and the phone is hard-bricked."
+if ($ValidateOnly) { exit 0 }
 Start-Process -FilePath $FlashToolPath -WorkingDirectory (Split-Path -Parent $FlashToolPath)

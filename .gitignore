@@ -23,6 +23,16 @@ logs/*
 !logs/.gitkeep
 coverage/
 
+# Local firmware and flashing tools
+firmware/downloads/*
+firmware/stock/*
+firmware/ota/*
+!firmware/downloads/.gitkeep
+!firmware/stock/.gitkeep
+!firmware/ota/.gitkeep
+*.ofp
+DownloadTool.exe
+
 
 
 
