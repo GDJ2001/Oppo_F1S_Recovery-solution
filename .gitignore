@@ -23,51 +23,7 @@ logs/*
 !logs/.gitkeep
 coverage/
 
-# Android/recovery firmware binaries and archives
-*.img
-*.bin
-*.mbn
-*.elf
-*.br
-*.dat
-*.new.dat
-*.sparsechunk
-*.ofp
-*.ozip
-*.zip
-*.rar
-*.7z
-*.tar
-*.tar.gz
-*.tgz
-*.download
-*.partial
-*.partial.invalid
 
-# Driver installers and third-party tool binaries
-*.exe
-*.msi
-*.dll
-*.sys
-*.cab
 
-# Keep placeholder/documentation files in binary-oriented folders
-!firmware/**/
-!firmware/**/*.md
-!firmware/**/*.txt
-!firmware/**/*.json
-!firmware/**/*.scatter
-!firmware/**/*.sha256
-!firmware/**/.gitkeep
-!drivers/**/
-!drivers/**/*.md
-!drivers/**/.gitkeep
-!tools/**/
-!tools/**/*.md
-!tools/**/.gitkeep
 
-# Extracted local stock firmware packages
-firmware/stock/**
-!firmware/stock/
-!firmware/stock/.gitkeep
-/Oppo_F1S_A1601_MT6750_EX_11_A.15_160913/
+
