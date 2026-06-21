@@ -9,7 +9,7 @@ First flash a complete loose scatter firmware package. OFP/service packages are 
 Expected firmware shape:
 
 ```text
-firmware\stock\A1601EX_11_A.40_190709\Firmware\MT6750_Android_scatter.txt
+firmware\stock\A1601EX_11_A24_161119\Firmware\MT6750_Android_scatter.txt
 ```
 
 The same firmware directory must include matching AP and MD/BPLGU database files for SN Write Tool.
@@ -19,8 +19,8 @@ The same firmware directory must include matching AP and MD/BPLGU database files
 After Android boots from a valid firmware flash:
 
 ```powershell
-.\scripts\powershell\Get-NvramRepairReadiness.ps1 -FirmwareDir "firmware\stock\A1601EX_11_A.40_190709\Firmware"
-.\scripts\powershell\Start-SnWriteTool.ps1 -FirmwareDir "firmware\stock\A1601EX_11_A.40_190709\Firmware"
+.\scripts\powershell\Get-NvramRepairReadiness.ps1 -FirmwareDir "firmware\stock\A1601EX_11_A24_161119\Firmware"
+.\scripts\powershell\Start-SnWriteTool.ps1 -FirmwareDir "firmware\stock\A1601EX_11_A24_161119\Firmware"
 ```
 
 Enter only the phone's original IMEI from the box/sticker/paperwork. Do not generate, borrow, modify, or store IMEI values.

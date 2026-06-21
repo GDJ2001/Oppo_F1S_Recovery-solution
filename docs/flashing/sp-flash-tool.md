@@ -5,7 +5,7 @@ This repo uses SP Flash Tool or SP MDT with a loose MediaTek scatter package. It
 ## Validate Firmware
 
 ```powershell
-.\scripts\powershell\Test-F1sFirmwarePackage.ps1 -FirmwareDir "firmware\stock\A1601EX_11_A.40_190709\Firmware"
+.\scripts\powershell\Test-F1sFirmwarePackage.ps1 -FirmwareDir "firmware\stock\A1601EX_11_A24_161119\Firmware"
 ```
 
 The validator rejects:
@@ -22,9 +22,15 @@ The validator rejects:
 Only after validation passes:
 
 ```powershell
-.\scripts\powershell\Start-SpFlashTool.ps1 -FirmwareDir "firmware\stock\A1601EX_11_A.40_190709\Firmware"
+.\scripts\powershell\Start-SpFlashTool.ps1 -FirmwareDir "firmware\stock\A1601EX_11_A24_161119\Firmware"
 ```
 
-Use `Download Only` first. Leave `preloader` unchecked unless exact A1601 hardware is confirmed and the phone is hard-bricked.
+Current validated flasher is SP MDT:
+
+```text
+tools\SP_MDT_v6.2228.00\SP_MDT_v6.2228.00\mdt.exe
+```
+
+Use `Download Only`/normal download mode first. Leave `preloader` unchecked unless exact A1601 hardware is confirmed and the phone is hard-bricked.
 
 Do not put the phone into Preloader/VCOM mode until firmware validation and tool discovery both pass.
