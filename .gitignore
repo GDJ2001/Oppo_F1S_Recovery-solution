@@ -30,6 +30,17 @@ firmware/ota/*
 !firmware/downloads/.gitkeep
 !firmware/stock/.gitkeep
 !firmware/ota/.gitkeep
+tools/downloads/*
+tools/**/*.exe
+tools/**/*.dll
+drivers/**/*.zip
+drivers/**/*.cab
+drivers/**/*.exe
+drivers/**/*.sys
+drivers/mtk-usb/exported-oem*/
+drivers/mtk-usb/gsmusbdriver-*/
+drivers/mtk-usb/microsoft-catalog-*/
+drivers/oppo-usb-driver-*/
 *.ofp
 DownloadTool.exe
 

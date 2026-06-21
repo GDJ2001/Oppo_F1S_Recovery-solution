@@ -38,6 +38,7 @@ function Find-SnWriter {
         $roots += $ToolDir
     }
     $roots += (Join-Path $RepoRoot "tools\sn-write-tool")
+    $roots += (Join-Path $RepoRoot "tools")
 
     foreach ($root in $roots) {
         if (-not (Test-Path -LiteralPath $root)) {
@@ -102,7 +103,7 @@ $devices = @(Get-RelatedUsbDevices)
 
 $warnings = @()
 if (-not $snWriter) {
-    $warnings += "SN_Writer.exe was not found under tools\sn-write-tool."
+    $warnings += "SN_Writer.exe was not found under tools."
 }
 if (-not $databases.apDatabase) {
     $warnings += "AP database file was not found in the firmware directory."

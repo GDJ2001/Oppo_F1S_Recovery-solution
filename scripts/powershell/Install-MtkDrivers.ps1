@@ -23,7 +23,11 @@ if (-not (Test-Path -LiteralPath $driverRoot)) {
 }
 
 $infFiles = @(Get-ChildItem -LiteralPath $driverRoot -Recurse -File -Filter "*.inf" |
-    Where-Object { $_.FullName -match "microsoft-mediatek" })
+    Where-Object {
+        $content = Get-Content -LiteralPath $_.FullName -Raw -ErrorAction SilentlyContinue
+        $_.FullName -match "mediatek|mtk|oppo|vcom" -or
+            $content -match "MediaTek|MTK|VCOM|PreLoader|VID_0E8D|VID_22D9"
+    })
 
 if ($infFiles.Count -eq 0) {
     throw "No extracted MediaTek driver INF files found under $driverRoot"
@@ -52,4 +56,8 @@ foreach ($inf in $infFiles) {
 }
 
 Write-Host ""
-Write-Host "Driver installation commands completed. Reconnect the powered-off phone in preloader mode and rerun Test-F1sFirmwarePackage.ps1."
+Write-Host "Rescanning devices..."
+& pnputil.exe /scan-devices
+
+Write-Host ""
+Write-Host "Driver installation commands completed. Reconnect the powered-off phone in preloader mode and rerun Get-FlashingReadiness.ps1."

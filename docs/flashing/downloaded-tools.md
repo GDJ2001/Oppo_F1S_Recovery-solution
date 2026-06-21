@@ -145,3 +145,45 @@ SHA-256:
 ```
 
 Do not store IMEI values in this repository.
+
+## Driver Readiness
+
+Installed driver-store entry:
+
+```text
+Published name: oem157.inf
+Original name:  cdc-acm.inf
+Provider:       MediaTek Inc.
+Version:        01/04/2023 3.0.1512.0
+Signer:         Microsoft Windows Hardware Compatibility Publisher
+```
+
+The exported INF contains the OPPO preloader hardware ID:
+
+```text
+USB\VID_22D9&PID_0006
+```
+
+Local driver source archive:
+
+```text
+drivers\oppo-usb-driver-v4.0.1.6\Oppo-USB-Driver-Setup-V4.0.1.6.zip
+```
+
+SHA-256:
+
+```text
+CB4B8454A012685FE13B142C8486F29AABE7DE462D6277AB11FEF553360F2FFC
+```
+
+Additional Microsoft Catalog driver staged for reference:
+
+```text
+drivers\mtk-usb\microsoft-catalog-mediatek-preloader-win10-2015\20896845_fdc6bb5aa9a9bac99adf85d931d6c21d1130a96e.cab
+```
+
+SHA-256:
+
+```text
+CE72E97C07582AD41DEBFAEEE6F6284ECD28285DF5F9CAA05193653FB236561F
+```

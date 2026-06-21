@@ -34,3 +34,15 @@ tools\SP_MDT_v6.2228.00\SP_MDT_v6.2228.00\mdt.exe
 Use `Download Only`/normal download mode first. Leave `preloader` unchecked unless exact A1601 hardware is confirmed and the phone is hard-bricked.
 
 Do not put the phone into Preloader/VCOM mode until firmware validation and tool discovery both pass.
+
+## Guided Terminal Session
+
+Use this when the GUI flasher is hard to time correctly:
+
+```powershell
+.\scripts\powershell\Start-F1sGuidedFlashSession.ps1 -CountdownSeconds 20 -MonitorSeconds 90
+```
+
+The script validates firmware, launches SP MDT, copies the scatter path to the clipboard, starts a countdown, and logs OPPO/MediaTek USB state changes under `logs`.
+
+For this phone, do not hold both volume buttons if that enters ColorOS Recovery. Start the flasher first, then connect the powered-off phone with no buttons. If that is not detected, retry with only `Volume Up`, then only `Volume Down`.
