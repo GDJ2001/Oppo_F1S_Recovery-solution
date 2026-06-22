@@ -1,29 +1,28 @@
-# Oppo F1S Recovery Solution
+# OPPO F1s A1601 Recovery Tool
 
-Repository scaffold for a recovery utility targeting the OPPO F1s. The layout separates application code, device configuration, recovery assets, documentation, and local-only firmware/tooling.
+This repo contains the terminal-guided recovery workflow for an OPPO F1s A1601 / MT6750 phone. It validates a loose scatter firmware package, launches SP MDT/SP Flash tooling, monitors Windows preloader/VCOM detection, and prepares SN Write Tool for restoring only the phone's original IMEI.
 
-## Folder Structure
+## Main Commands
 
-```text
-.
-|-- assets/              # UI assets, icons, screenshots, and branding material
-|-- config/              # Device profiles and runtime configuration templates
-|-- docs/                # User guides, device notes, flashing steps, troubleshooting
-|-- drivers/             # Driver notes and placeholders for local driver packages
-|-- firmware/            # Local firmware/recovery files; large binaries are gitignored
-|-- logs/                # Runtime/debug logs; ignored except for .gitkeep
-|-- releases/            # Release notes and packaged build metadata
-|-- scripts/             # Automation scripts for setup, validation, and packaging
-|-- src/                 # Recovery tool source code
-|-- tests/               # Unit, integration, and fixture-based tests
-|-- tools/               # Local third-party tools such as ADB/Fastboot/SP Flash Tool
-`-- .gitignore
+```powershell
+.\scripts\powershell\Start-F1sTerminalFlasher.ps1 -Command status
+.\scripts\powershell\Start-F1sTerminalFlasher.ps1 -Command prepare
+.\scripts\powershell\Start-F1sTerminalFlasher.ps1 -Command flash -CountdownSeconds 20 -MonitorSeconds 90
+.\scripts\powershell\Start-F1sTerminalFlasher.ps1 -Command monitor -MonitorSeconds 90
+.\scripts\powershell\Start-F1sTerminalFlasher.ps1 -Command snwrite
 ```
 
-## Notes
+## Active Layout
 
-- Do not commit copyrighted firmware dumps, stock ROM packages, driver installers, or third-party tool binaries.
-- Store checksums and source links in `firmware/checksums/` or folder README files instead of committing large packages.
-- Keep device-specific assumptions in `config/devices/` so the recovery workflow can be reviewed and updated safely.
-- The current A1601 recovery OTA research and local package notes are in `docs/flashing/a1601-official-ota.md`.
-- Full firmware and NVRAM/original-IMEI repair notes are in `docs/flashing/nvram-imei-repair.md`.
+```text
+config/     Device profile notes
+docs/       Flashing and NVRAM/IMEI repair guides
+drivers/    Local driver packages and extracted driver references, gitignored
+firmware/   Local firmware packages and stock scatter firmware, gitignored
+logs/       Runtime detection logs, gitignored
+scripts/    PowerShell launchers, validators, and readiness checks
+src/cli/    Terminal controller
+tools/      Local SP MDT/SP Flash/SN Write/ADB tools, gitignored where binary
+```
+
+Do not commit firmware dumps, stock ROM packages, driver installers, third-party tool binaries, IMEI values, or generated logs.

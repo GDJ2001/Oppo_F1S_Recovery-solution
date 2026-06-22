@@ -1,6 +1,5 @@
 # Configuration
 
-Configuration files for supported devices and recovery workflows.
+Device profile notes for the OPPO F1s A1601 workflow.
 
-- `devices/`: device profile templates
-- `profiles/`: workflow/profile presets for safe restore, full flash, or diagnostics
+- `devices/oppo-f1s.example.json`: current device assumptions and expected firmware identity markers.

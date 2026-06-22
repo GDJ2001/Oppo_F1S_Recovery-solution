@@ -46,3 +46,16 @@ Use this when the GUI flasher is hard to time correctly:
 The script validates firmware, launches SP MDT, copies the scatter path to the clipboard, starts a countdown, and logs OPPO/MediaTek USB state changes under `logs`.
 
 For this phone, do not hold both volume buttons if that enters ColorOS Recovery. Start the flasher first, then connect the powered-off phone with no buttons. If that is not detected, retry with only `Volume Up`, then only `Volume Down`.
+
+## Terminal Controller
+
+The repo also has a terminal controller that prefers the local `SP_MDT Unpacked` runtime when it exists:
+
+```powershell
+.\scripts\powershell\Start-F1sTerminalFlasher.ps1 -Command status
+.\scripts\powershell\Start-F1sTerminalFlasher.ps1 -Command prepare
+.\scripts\powershell\Start-F1sTerminalFlasher.ps1 -Command flash -CountdownSeconds 20 -MonitorSeconds 90
+.\scripts\powershell\Start-F1sTerminalFlasher.ps1 -Command monitor -MonitorSeconds 90
+```
+
+This is the custom terminal entry point for the project. It does not patch SP MDT; it uses the MediaTek flasher as a runtime dependency and owns validation, countdown, driver/device monitoring, and logs.

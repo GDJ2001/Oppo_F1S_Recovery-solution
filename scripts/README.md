@@ -1,6 +1,5 @@
 # Scripts
 
-Automation scripts for setup, verification, flashing helpers, and packaging.
+Windows PowerShell automation for the OPPO F1s flashing workflow.
 
-- `powershell/`: Windows-first scripts
-- `python/`: cross-platform helpers and validation tools
+Use `powershell/Start-F1sTerminalFlasher.ps1` as the main entry point.
