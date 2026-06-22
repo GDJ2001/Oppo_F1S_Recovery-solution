@@ -12,6 +12,8 @@ This repo contains the terminal-guided recovery workflow for an OPPO F1s A1601 /
 .\scripts\powershell\Start-F1sTerminalFlasher.ps1 -Command snwrite
 ```
 
+For the live flash attempt, start the terminal flash command first, set SP MDT to normal download/`Download Only`, then connect the phone while it is fully powered off. Use no buttons first; if Preloader/VCOM is not detected, retry only `Volume Up`, then only `Volume Down`. Do not hold both volume buttons on this phone because that enters ColorOS Recovery.
+
 ## Active Layout
 
 ```text

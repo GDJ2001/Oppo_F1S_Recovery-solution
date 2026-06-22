@@ -47,10 +47,33 @@ $usbDevices = @(Get-PnpDevice -PresentOnly -ErrorAction SilentlyContinue |
     Where-Object { $_.FriendlyName -match "OPPO|Android|ADB|Fastboot|MediaTek|MTK|Preloader|VCOM|CDC" -or $_.InstanceId -match "VID_0E8D|VID_22D9|VID_18D1" } |
     Select-Object Status, Class, FriendlyName, InstanceId)
 
-$hasMtkPreloader = @($usbDevices | Where-Object { $_.FriendlyName -match "MediaTek|MTK|Preloader|VCOM|CDC" -or $_.InstanceId -match "VID_0E8D" }).Count -gt 0
-$hasOppoMtp = @($usbDevices | Where-Object { $_.FriendlyName -match "OPPO A1601|OPPO|USB Mass Storage|Remote NDIS" -or $_.InstanceId -match "VID_22D9" }).Count -gt 0
+$preloaderDevices = @($usbDevices | Where-Object { $_.FriendlyName -match "MediaTek|MTK|Preloader|PreLoader|VCOM|CDC" -or $_.InstanceId -match "VID_0E8D|VID_22D9&PID_0006|VID_22D9&PID_2000" })
+$problemDevices = @($preloaderDevices | Where-Object { $_.Status -and $_.Status -ne "OK" })
+$problemUsbDevices = @($usbDevices | Where-Object { $_.Status -and $_.Status -ne "OK" })
+$normalOppoDevices = @($usbDevices | Where-Object { $_.FriendlyName -match "OPPO A1601|OPPO|USB Mass Storage|Remote NDIS|MTP" -or $_.InstanceId -match "VID_22D9" })
+$recoveryOrDebugDevices = @($usbDevices | Where-Object { $_.FriendlyName -match "Recovery|ADB|Android|Fastboot" -or $_.InstanceId -match "VID_18D1" })
+$hasMtkPreloader = $preloaderDevices.Count -gt 0
+$hasPreloaderDriverError = $problemDevices.Count -gt 0
+$hasOppoMtp = $normalOppoDevices.Count -gt 0
+$hasRecoveryOrDebug = $recoveryOrDebugDevices.Count -gt 0
 $adbVisible = ($adbDevices.output -split "`r?`n" | Where-Object { $_ -match "\bdevice\b" -and $_ -notmatch "List of devices|daemon" }).Count -gt 0
 $fastbootVisible = $fastbootDevices.exitCode -eq 0 -and (($fastbootDevices.output -split "`r?`n" | Where-Object { $_ -match "^\S+\s+fastboot\b" }).Count -gt 0)
+
+$deviceState = if ($hasMtkPreloader -and $hasPreloaderDriverError) {
+    "preloader-driver-error"
+}
+elseif ($hasMtkPreloader) {
+    "preloader-ready"
+}
+elseif ($adbVisible -or $fastbootVisible -or $hasRecoveryOrDebug) {
+    "recovery-adb-fastboot"
+}
+elseif ($hasOppoMtp) {
+    "normal-oppo-usb"
+}
+else {
+    "no-device"
+}
 
 $nextAction = if (-not $firmware.ok) {
     "Fix firmware validation errors before flashing. This package is not a loose SP Flash scatter package if OFP/DownloadTool is reported."
@@ -61,11 +84,17 @@ elseif (-not $flashTool) {
 elseif ($driverInfs.Count -eq 0) {
     "Install/extract MTK USB/VCOM drivers under drivers\mtk-usb."
 }
-elseif ($hasMtkPreloader) {
+elseif ($deviceState -eq "preloader-driver-error") {
+    "Preloader/VCOM appeared, but Windows reports a driver/problem status. Fix the driver before flashing."
+}
+elseif ($deviceState -eq "preloader-ready") {
     "Preloader/VCOM mode is visible. Open the guided flasher and use Download Only."
 }
-elseif ($hasOppoMtp) {
-    "Phone is in normal USB/MTP/RNDIS mode. Power off, hold both volume keys, and reconnect for preloader mode only after firmware validation passes."
+elseif ($deviceState -eq "recovery-adb-fastboot") {
+    "Phone is visible in recovery/ADB/Fastboot, which is not flash-ready for SP MDT. Power off fully, connect with no buttons first; if not detected, retry only Volume Up, then only Volume Down."
+}
+elseif ($deviceState -eq "normal-oppo-usb") {
+    "Phone is in normal OPPO/Android USB mode, which is not flash-ready for SP MDT. Power off fully, connect with no buttons first; if not detected, retry only Volume Up, then only Volume Down."
 }
 else {
     "No matching OPPO/MTK USB device is visible."
@@ -81,8 +110,12 @@ $result = [ordered]@{
     adbVisible = $adbVisible
     fastbootVisible = $fastbootVisible
     mtkPreloaderVisible = $hasMtkPreloader
+    preloaderDriverError = $hasPreloaderDriverError
     oppoNormalUsbVisible = $hasOppoMtp
+    recoveryAdbFastbootVisible = $hasRecoveryOrDebug
+    deviceState = $deviceState
     usbDevices = $usbDevices
+    problemUsbDevices = $problemUsbDevices
     nextAction = $nextAction
 }
 
@@ -96,8 +129,12 @@ Write-Host "MTK driver INF files : $($result.mtkDriverInfCount)"
 Write-Host "ADB visible          : $($result.adbVisible)"
 Write-Host "Fastboot visible     : $($result.fastbootVisible)"
 Write-Host "Preloader/VCOM       : $($result.mtkPreloaderVisible)"
+Write-Host "Preloader error      : $($result.preloaderDriverError)"
 Write-Host "Normal OPPO USB/MTP  : $($result.oppoNormalUsbVisible)"
+Write-Host "Recovery/ADB/Fastboot: $($result.recoveryAdbFastbootVisible)"
+Write-Host "Device state         : $($result.deviceState)"
 if ($result.firmwareRejectReasons.Count -gt 0) { Write-Host ""; $result.firmwareRejectReasons | ForEach-Object { Write-Warning $_ } }
 if ($usbDevices.Count -gt 0) { Write-Host ""; $usbDevices | Format-Table -AutoSize }
+if ($problemUsbDevices.Count -gt 0) { Write-Host ""; $problemUsbDevices | ForEach-Object { Write-Warning "Windows reports a driver/problem status: $($_.FriendlyName) [$($_.Status)] $($_.InstanceId)" } }
 Write-Host ""
 Write-Host "Next action: $nextAction"

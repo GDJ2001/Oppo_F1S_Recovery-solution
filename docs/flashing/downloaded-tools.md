@@ -103,7 +103,7 @@ That directory must also contain all scatter-referenced image files with nonzero
 At least one of these must exist under `tools`. Current restored tool:
 
 ```text
-tools\SP_MDT_v6.2228.00\SP_MDT_v6.2228.00\mdt.exe
+tools\SP_MDT_v6.2228.00\SP_MDT Unpacked\mdt.exe
 ```
 
 Downloaded archive:

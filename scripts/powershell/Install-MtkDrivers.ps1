@@ -60,4 +60,5 @@ Write-Host "Rescanning devices..."
 & pnputil.exe /scan-devices
 
 Write-Host ""
-Write-Host "Driver installation commands completed. Reconnect the powered-off phone in preloader mode and rerun Get-FlashingReadiness.ps1."
+Write-Host "Driver installation commands completed. Power the phone off, connect with no buttons first, and rerun Get-FlashingReadiness.ps1."
+Write-Host "If Preloader/VCOM is not detected, retry with only Volume Up, then only Volume Down. Do not hold both volume buttons on this phone."

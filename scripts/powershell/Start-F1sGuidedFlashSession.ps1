@@ -61,14 +61,19 @@ function Get-DeviceKind {
     $devices = @($Snapshot.devices)
     $ports = @($Snapshot.ports)
 
-    if (@($devices | Where-Object { $_.PNPDeviceID -match "VID_22D9&PID_0006|VID_22D9&PID_2000|VID_0E8D&PID_2000|VID_0E8D&PID_0003" -or $_.Name -match "Preloader|PreLoader|VCOM" }).Count -gt 0 -or $ports.Count -gt 0) {
-        $problem = @($devices | Where-Object { $_.ConfigManagerErrorCode -and $_.ConfigManagerErrorCode -ne 0 })
+    $preloaderDevices = @($devices | Where-Object { $_.PNPDeviceID -match "VID_22D9&PID_0006|VID_22D9&PID_2000|VID_0E8D&PID_2000|VID_0E8D&PID_0003" -or $_.Name -match "Preloader|PreLoader|VCOM|MediaTek|MTK|CDC" })
+    if ($preloaderDevices.Count -gt 0 -or $ports.Count -gt 0) {
+        $problem = @($preloaderDevices | Where-Object { $_.ConfigManagerErrorCode -and $_.ConfigManagerErrorCode -ne 0 })
         if ($problem.Count -gt 0) { return "preloader-driver-error" }
         return "preloader-ready"
     }
 
-    if (@($devices | Where-Object { $_.Name -match "Recovery|MTP|ADB|Android|OPPO" -or $_.PNPDeviceID -match "VID_22D9|VID_18D1" }).Count -gt 0) {
-        return "normal-or-recovery"
+    if (@($devices | Where-Object { $_.Name -match "Recovery|ADB|Android|Fastboot" -or $_.PNPDeviceID -match "VID_18D1" }).Count -gt 0) {
+        return "recovery-adb-fastboot"
+    }
+
+    if (@($devices | Where-Object { $_.Name -match "MTP|OPPO|USB Mass Storage|Remote NDIS" -or $_.PNPDeviceID -match "VID_22D9" }).Count -gt 0) {
+        return "normal-oppo-usb"
     }
 
     return "none"
@@ -171,6 +176,7 @@ $lastSignature = ""
 $deadline = (Get-Date).AddSeconds($MonitorSeconds)
 $ready = $false
 $driverError = $false
+$lastKindNotice = ""
 
 while ((Get-Date) -lt $deadline) {
     $snapshot = Get-RelatedDeviceSnapshot
@@ -196,6 +202,12 @@ while ((Get-Date) -lt $deadline) {
         Write-Warning "Preloader appeared, but Windows reports a driver/problem code. Do not flash yet."
         $driverError = $true
         break
+    }
+    elseif ($kind -eq "normal-oppo-usb" -or $kind -eq "recovery-adb-fastboot") {
+        if ($kind -ne $lastKindNotice) {
+            Write-Host ("Device visible as {0}; this is not flash-ready for SP MDT." -f $kind)
+            $lastKindNotice = $kind
+        }
     }
 
     Start-Sleep -Milliseconds 500

@@ -15,3 +15,5 @@ Commands:
 ```
 
 Flashing still requires the MediaTek flashing engine. The terminal tool controls validation, setup, timing, and detection; it does not implement the proprietary MediaTek BROM/DA protocol itself.
+
+During a live attempt, connect the phone fully powered off with no buttons first. If Preloader/VCOM is not detected, retry only `Volume Up`, then only `Volume Down`; do not hold both volume buttons on this phone.
