@@ -89,10 +89,6 @@ function Invoke-DirectDownload {
     )
 
     $partial = "$Destination.partial"
-    if (Test-Path -LiteralPath $partial -PathType Leaf) {
-        Remove-Item -LiteralPath $partial
-    }
-
     try {
         Write-DownloadLog ("Starting BITS download: {0}" -f $Url)
         Start-BitsTransfer -Source $Url -Destination $partial -TransferType Download -ErrorAction Stop
@@ -112,21 +108,53 @@ function Invoke-GoogleDriveDownload {
     )
 
     $partial = "$Destination.partial"
-    if (Test-Path -LiteralPath $partial -PathType Leaf) {
-        Remove-Item -LiteralPath $partial
+    $python = Get-Command python.exe -ErrorAction SilentlyContinue
+    if (-not $python) {
+        throw "python.exe is required for resumable Google Drive downloads."
     }
 
-    $curl = Get-Command curl.exe -ErrorAction SilentlyContinue
-    if ($curl) {
-        Write-DownloadLog ("Starting Google Drive download through curl.exe: {0}" -f $Url)
-        & $curl.Source -L --fail --retry 5 --retry-delay 30 -o $partial $Url
-        if ($LASTEXITCODE -ne 0) {
-            throw "curl.exe failed with exit code $LASTEXITCODE"
-        }
+    & $python.Source -m gdown --version *> $null
+    if ($LASTEXITCODE -ne 0) {
+        throw "Python package 'gdown' is required. Install it with: python -m pip install --user gdown"
     }
-    else {
-        Write-DownloadLog ("curl.exe is unavailable; using Invoke-WebRequest for Google Drive URL.")
-        Invoke-WebRequest -Uri $Url -OutFile $partial -UseBasicParsing
+
+    Write-DownloadLog ("Starting resumable Google Drive download through gdown: {0}" -f $Url)
+    & $python.Source -m gdown --fuzzy --continue --output $partial $Url
+    if ($LASTEXITCODE -ne 0) {
+        throw "gdown failed with exit code $LASTEXITCODE"
+    }
+
+    Move-Item -LiteralPath $partial -Destination $Destination -Force
+}
+
+function Invoke-MediaFireDownload {
+    param(
+        [Parameter(Mandatory = $true)][string]$Url,
+        [Parameter(Mandatory = $true)][string]$Destination
+    )
+
+    $partial = "$Destination.partial"
+    $curl = Get-Command curl.exe -ErrorAction SilentlyContinue
+    if (-not $curl) {
+        throw "curl.exe is required for resumable MediaFire downloads."
+    }
+
+    Write-DownloadLog ("Resolving MediaFire download page: {0}" -f $Url)
+    $page = Invoke-WebRequest -Uri $Url -UseBasicParsing
+    $match = [regex]::Match(
+        [string]$page.Content,
+        'href="(https://download[^"]+)"',
+        [System.Text.RegularExpressions.RegexOptions]::IgnoreCase
+    )
+    if (-not $match.Success) {
+        throw "MediaFire direct download URL was not found."
+    }
+
+    $directUrl = [System.Net.WebUtility]::HtmlDecode($match.Groups[1].Value)
+    Write-DownloadLog "Starting resumable MediaFire download."
+    & $curl.Source -L --fail --retry 10 --retry-delay 30 --continue-at - --output $partial $directUrl
+    if ($LASTEXITCODE -ne 0) {
+        throw "curl.exe failed with exit code $LASTEXITCODE"
     }
 
     Move-Item -LiteralPath $partial -Destination $Destination -Force
@@ -194,6 +222,10 @@ foreach ($item in $items) {
         "google-drive" {
             $downloadAttempted = $true
             Invoke-GoogleDriveDownload -Url ([string]$item.sourceUrl) -Destination $destination
+        }
+        "mediafire" {
+            $downloadAttempted = $true
+            Invoke-MediaFireDownload -Url ([string]$item.sourceUrl) -Destination $destination
         }
         "manual" {
             if ($IncludeManual) {

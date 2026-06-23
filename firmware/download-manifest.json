@@ -13,7 +13,7 @@
       "title": "A1601EX_11_A.41_191226 RepairMyMobile OFP service package",
       "kind": "ofp-service-firmware",
       "priority": 10,
-      "method": "manual",
+      "method": "mediafire",
       "sourceUrl": "https://www.mediafire.com/file/yqv6384bdlge4l7/OPPO-F1S-A1601EX_11_A.41_191226_RepairMyMobile.zip/file",
       "destination": "firmware\\downloads\\OPPO-F1S-A1601EX_11_A.41_191226_RepairMyMobile.zip",
       "expectedSizeBytes": 1753001305,
@@ -32,7 +32,7 @@
       "kind": "scatter-firmware",
       "priority": 20,
       "method": "google-drive",
-      "sourceUrl": "https://drive.google.com/uc?id=1Ex9ZBmv6uH--xEJ8vgbDKvNghG0b63DA",
+      "sourceUrl": "https://drive.google.com/file/d/1DMo0tLBbtzvYmX9Qt-2h8xgT8dNWgL9l/view?usp=drivesdk",
       "sourcePages": [
         "https://firmwarefile.com/oppo-a1601",
         "https://oppostockrom.com/oppo-f1s-a1601"
@@ -50,7 +50,11 @@
       "title": "A1601EX_11_A.40_190709 AddROM OFP service package",
       "kind": "ofp-service-firmware",
       "priority": 30,
-      "method": "manual",
+      "method": "google-drive",
+      "sourceUrl": "https://drive.google.com/file/d/1acJVh_qd13lpepUNmNDk32i1hYeV_E79/view?usp=drivesdk",
+      "sourcePages": [
+        "https://addrom.com/collection-stock-rom-for-oppo/"
+      ],
       "destination": "firmware\\downloads\\[up_addROM.com]_Oppo_F1S_A1601_EX_11_A.40_190709.zip",
       "sha256": "443D86FD94E4C1AAFB090018E5E88DD024C0844BB0DB1316F7C7A3012C0F83FE",
       "notes": [
@@ -111,7 +115,11 @@
       "title": "Oppo_F1S_A1601_MT6750_EX_11_A.15_160913 scatter firmware",
       "kind": "scatter-firmware",
       "priority": 70,
-      "method": "manual",
+      "method": "google-drive",
+      "sourceUrl": "https://drive.google.com/file/d/1cDNVyL1ET1EW0xtcvj5fQrj3WyE2YrEd/view?usp=drivesdk",
+      "sourcePages": [
+        "https://addrom.com/collection-stock-rom-for-oppo/"
+      ],
       "destination": "firmware\\downloads\\Oppo_F1S_A1601_MT6750_EX_11_A.15_160913.zip",
       "sha256": "A43CBA48ADC6DECC1E68D440D7D25F2E877972CB41CFA49896608410FD89E200",
       "notes": [
@@ -124,8 +132,13 @@
       "title": "A1601EX_11_A.41_191226 tar.bz2 candidate",
       "kind": "candidate-firmware",
       "priority": 80,
-      "method": "manual",
+      "method": "mediafire",
+      "sourceUrl": "https://www.mediafire.com/file/0l760f3r4geij84/A1601EX_11_A.41_191226.tar.bz2/file",
+      "sourcePages": [
+        "https://www.ahmadservicecenter.com/2023/08/official-firmware-oppo-f1s-a1601-all.html"
+      ],
       "destination": "firmware\\downloads\\A1601EX_11_A.41_191226.tar.bz2",
+      "expectedSizeBytes": 1738598592,
       "notes": [
         "Recorded as an AhmadServiceCenter / HalabTech-style mirror candidate.",
         "The mirror was too slow to complete in-session and no stable direct URL or checksum was preserved.",
