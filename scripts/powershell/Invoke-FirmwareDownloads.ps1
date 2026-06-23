@@ -108,20 +108,25 @@ function Invoke-GoogleDriveDownload {
     )
 
     $partial = "$Destination.partial"
-    $python = Get-Command python.exe -ErrorAction SilentlyContinue
-    if (-not $python) {
-        throw "python.exe is required for resumable Google Drive downloads."
+    $curl = Get-Command curl.exe -ErrorAction SilentlyContinue
+    if (-not $curl) {
+        throw "curl.exe is required for resumable Google Drive downloads."
     }
 
-    & $python.Source -m gdown --version *> $null
-    if ($LASTEXITCODE -ne 0) {
-        throw "Python package 'gdown' is required. Install it with: python -m pip install --user gdown"
+    $idMatch = [regex]::Match($Url, '/d/([^/]+)')
+    if (-not $idMatch.Success) {
+        $idMatch = [regex]::Match($Url, '[?&]id=([^&]+)')
+    }
+    if (-not $idMatch.Success) {
+        throw "Google Drive file ID could not be parsed from: $Url"
     }
 
-    Write-DownloadLog ("Starting resumable Google Drive download through gdown: {0}" -f $Url)
-    & $python.Source -m gdown --fuzzy --continue --output $partial $Url
+    $fileId = $idMatch.Groups[1].Value
+    $directUrl = "https://drive.usercontent.google.com/download?id=$fileId&export=download&confirm=t"
+    Write-DownloadLog ("Starting resumable Google Drive download through curl.exe: {0}" -f $Url)
+    & $curl.Source -L --fail --retry 10 --retry-delay 30 --continue-at - --output $partial $directUrl
     if ($LASTEXITCODE -ne 0) {
-        throw "gdown failed with exit code $LASTEXITCODE"
+        throw "curl.exe failed with exit code $LASTEXITCODE"
     }
 
     Move-Item -LiteralPath $partial -Destination $Destination -Force
