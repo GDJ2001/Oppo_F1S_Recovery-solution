@@ -38,9 +38,10 @@
         "https://oppostockrom.com/oppo-f1s-a1601"
       ],
       "destination": "firmware\\downloads\\Oppo_F1S_A1601_MT6750_EX_11_A.24_161119_google_drive.zip",
-      "sha256": "52EEFBC19ED2E168F6C8CC52B3E2305790E70AAB447588F4FC6447B4C8AFC039",
+      "expectedSizeBytes": 1648111039,
+      "sha256": "B8113FB5CD46CA3D3902DE942B0FD73CEF96D45629A0CBA1043116382695EC1E",
       "notes": [
-        "Previously validated as loose SP Flash scatter fallback.",
+        "AddROM Google Drive mirror validated on 2026-06-24: scatter, AP/MD databases, nonzero system.img, and no zero-byte IMG/BIN entries.",
         "Expected scatter after extraction: firmware\\stock\\A1601EX_11_A24_161119\\Firmware\\MT6750_Android_scatter.txt",
         "This package later hit secure-boot md1img verified-image limitations, but it is still worth preserving for comparison."
       ]
@@ -121,10 +122,11 @@
         "https://addrom.com/collection-stock-rom-for-oppo/"
       ],
       "destination": "firmware\\downloads\\Oppo_F1S_A1601_MT6750_EX_11_A.15_160913.zip",
-      "sha256": "A43CBA48ADC6DECC1E68D440D7D25F2E877972CB41CFA49896608410FD89E200",
+      "expectedSizeBytes": 1615702711,
+      "sha256": "610682C7A4FF427BDF454F0C96CDB6935F68141AB10700354CE47F965857C18E",
       "notes": [
-        "Original source URL was not recorded; the archive was user-provided/local.",
-        "The previous extracted copy had a zero-byte system.img and must not be trusted unless this ZIP verifies cleanly after redownload."
+        "AddROM Google Drive mirror validated on 2026-06-24: scatter, AP/MD databases, nonzero system.img, and no zero-byte IMG/BIN entries.",
+        "The previous lost extracted copy had a zero-byte system.img; this reacquired archive does not."
       ]
     },
     {
@@ -139,10 +141,11 @@
       ],
       "destination": "firmware\\downloads\\A1601EX_11_A.41_191226.tar.bz2",
       "expectedSizeBytes": 1738598592,
+      "sha256": "BA5A953A0B5E4EAE83DECCAA815634C7CF74DDB93BCF4075FF2362D8408E9C31",
       "notes": [
-        "Recorded as an AhmadServiceCenter / HalabTech-style mirror candidate.",
-        "The mirror was too slow to complete in-session and no stable direct URL or checksum was preserved.",
-        "Only accept it later after extraction and validation."
+        "Downloaded and archive-tested on 2026-06-24.",
+        "Contains oppo6750_15331.ofp and matching A1601EX_11_A.41_191226 AP/MD database files.",
+        "Contains DownloadTool.exe; keep only as an OFP extraction/reference package and do not execute DownloadTool."
       ]
     }
   ]

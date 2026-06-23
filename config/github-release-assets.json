@@ -99,10 +99,23 @@
       "sourcePath": "firmware\\downloads\\Oppo_F1S_A1601_MT6750_EX_11_A.24_161119_google_drive.zip",
       "stageRelativePath": "scatter\\Oppo_F1S_A1601_MT6750_EX_11_A.24_161119_google_drive.zip",
       "restorePath": "firmware\\downloads\\Oppo_F1S_A1601_MT6750_EX_11_A.24_161119_google_drive.zip",
-      "sha256": "52EEFBC19ED2E168F6C8CC52B3E2305790E70AAB447588F4FC6447B4C8AFC039",
+      "sha256": "B8113FB5CD46CA3D3902DE942B0FD73CEF96D45629A0CBA1043116382695EC1E",
+      "expectedSizeBytes": 1648111039,
       "validationStatus": "reference-scatter",
       "intendedUse": "Previously validated scatter fallback and comparison source.",
       "required": true
+    },
+    {
+      "id": "a41-ahmadservicecenter-tarbz2",
+      "bundle": "firmware-raw",
+      "sourcePath": "firmware\\downloads\\A1601EX_11_A.41_191226.tar.bz2",
+      "stageRelativePath": "ofp-service\\A1601EX_11_A.41_191226.tar.bz2",
+      "restorePath": "firmware\\downloads\\A1601EX_11_A.41_191226.tar.bz2",
+      "sha256": "BA5A953A0B5E4EAE83DECCAA815634C7CF74DDB93BCF4075FF2362D8408E9C31",
+      "expectedSizeBytes": 1738598592,
+      "validationStatus": "ofp-service-reference",
+      "intendedUse": "OFP extraction/reference package; do not execute the bundled DownloadTool.",
+      "required": false
     },
     {
       "id": "a41-rmm-ofp-mediafire",
@@ -133,9 +146,10 @@
       "sourcePath": "firmware\\downloads\\Oppo_F1S_A1601_MT6750_EX_11_A.15_160913.zip",
       "stageRelativePath": "rejected-or-reference\\Oppo_F1S_A1601_MT6750_EX_11_A.15_160913.zip",
       "restorePath": "firmware\\downloads\\Oppo_F1S_A1601_MT6750_EX_11_A.15_160913.zip",
-      "sha256": "A43CBA48ADC6DECC1E68D440D7D25F2E877972CB41CFA49896608410FD89E200",
-      "validationStatus": "rejected-or-reference",
-      "intendedUse": "Historical reference only unless a fresh archive validates cleanly.",
+      "sha256": "610682C7A4FF427BDF454F0C96CDB6935F68141AB10700354CE47F965857C18E",
+      "expectedSizeBytes": 1615702711,
+      "validationStatus": "reference-scatter",
+      "intendedUse": "Validated loose scatter reference package; older than the preferred service firmware.",
       "required": false
     },
     {
