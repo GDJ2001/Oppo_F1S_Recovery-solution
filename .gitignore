@@ -23,6 +23,8 @@ out/
 logs/*
 !logs/.gitkeep
 coverage/
+artifacts/
+release-assets/
 
 # Local firmware and flashing tools
 firmware/downloads/*

@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "description": "OPPO F1s A1601 firmware assets to reacquire after local firmware loss. Large binaries remain ignored by Git.",
+  "generatedFrom": [
+    "docs/flashing/downloaded-tools.md",
+    "docs/flashing/incident-2026-06-21-ofp-extractor-loss.md",
+    "git history for docs/flashing/downloaded-tools.md",
+    "git history for docs/flashing/a1601-official-ota.md"
+  ],
+  "items": [
+    {
+      "id": "a41-rmm-ofp-mediafire",
+      "title": "A1601EX_11_A.41_191226 RepairMyMobile OFP service package",
+      "kind": "ofp-service-firmware",
+      "priority": 10,
+      "method": "manual",
+      "sourceUrl": "https://www.mediafire.com/file/yqv6384bdlge4l7/OPPO-F1S-A1601EX_11_A.41_191226_RepairMyMobile.zip/file",
+      "destination": "firmware\\downloads\\OPPO-F1S-A1601EX_11_A.41_191226_RepairMyMobile.zip",
+      "expectedSizeBytes": 1753001305,
+      "sha256": "DFAB4FD94C00B6C8ADF425E1C7FE60623DB5F1F9A91A1A429EB6F795F7B5E755",
+      "notes": [
+        "MediaFire browser page was previously usable manually, but automated transfers stalled or reset.",
+        "Expected extracted OFP: firmware\\stock\\A1601EX_11_A.41_191226_RepairMyMobile\\A1601EX_11_A.41_191226_RMM\\oppo6750_15331.ofp",
+        "Expected AP DB: A1601EX_11_A.41_191226_database_AP",
+        "Expected MD DB: A1601EX_11_A.41_191226_database",
+        "Do not use DownloadTool.exe for this workflow."
+      ]
+    },
+    {
+      "id": "a24-scatter-google-drive",
+      "title": "Oppo_F1S_A1601_MT6750_EX_11_A.24_161119 scatter firmware",
+      "kind": "scatter-firmware",
+      "priority": 20,
+      "method": "google-drive",
+      "sourceUrl": "https://drive.google.com/uc?id=1Ex9ZBmv6uH--xEJ8vgbDKvNghG0b63DA",
+      "sourcePages": [
+        "https://firmwarefile.com/oppo-a1601",
+        "https://oppostockrom.com/oppo-f1s-a1601"
+      ],
+      "destination": "firmware\\downloads\\Oppo_F1S_A1601_MT6750_EX_11_A.24_161119_google_drive.zip",
+      "sha256": "52EEFBC19ED2E168F6C8CC52B3E2305790E70AAB447588F4FC6447B4C8AFC039",
+      "notes": [
+        "Previously validated as loose SP Flash scatter fallback.",
+        "Expected scatter after extraction: firmware\\stock\\A1601EX_11_A24_161119\\Firmware\\MT6750_Android_scatter.txt",
+        "This package later hit secure-boot md1img verified-image limitations, but it is still worth preserving for comparison."
+      ]
+    },
+    {
+      "id": "a40-addrom-ofp-service",
+      "title": "A1601EX_11_A.40_190709 AddROM OFP service package",
+      "kind": "ofp-service-firmware",
+      "priority": 30,
+      "method": "manual",
+      "destination": "firmware\\downloads\\[up_addROM.com]_Oppo_F1S_A1601_EX_11_A.40_190709.zip",
+      "sha256": "443D86FD94E4C1AAFB090018E5E88DD024C0844BB0DB1316F7C7A3012C0F83FE",
+      "notes": [
+        "Direct download URL was not preserved in the repo; docs identify it as an AddROM/Google Drive package.",
+        "Expected OFP SHA-256 after extraction: FBD3CC8EBB421ADFA0D9C7D20E3BB6B6ABA03D9C64112DA79AA2143C4BF75DAC",
+        "Expected files: oppo6750_15331.ofp, A1601EX_11_A.40_190709_database, A1601EX_11_A.40_190709_database_AP.",
+        "Reject DownloadTool.exe usage; use OFP extraction or validated scatter output only."
+      ]
+    },
+    {
+      "id": "official-ota-a41",
+      "title": "Official OPPO A1601EX_11_A.41_191226 recovery OTA",
+      "kind": "official-recovery-ota",
+      "priority": 40,
+      "method": "direct",
+      "sourceUrl": "http://downloads.oppo.com.s3.amazonaws.com/firmware/A1601/A1601EX_11_OTA_041_all_201912261125.zip",
+      "destination": "firmware\\ota\\A1601EX_11_OTA_041_all_201912261125.zip",
+      "expectedSizeBytes": 1556852704,
+      "sha256": "182EBD484B0CA85B176A10378BE2442EB0685E79AAE1523C8088C0452237F023",
+      "notes": [
+        "Stock recovery OTA, not SP Flash scatter firmware.",
+        "Metadata recorded: version_name=A1601EX_11_A.41_191226, pre-device=A1601, wipe=0."
+      ]
+    },
+    {
+      "id": "official-ota-a40",
+      "title": "Official OPPO A1601EX_11_A.40_190709 recovery OTA",
+      "kind": "official-recovery-ota",
+      "priority": 50,
+      "method": "direct",
+      "sourceUrl": "http://downloads.oppo.com.s3.amazonaws.com/firmware/A1601/A1601EX_11_OTA_040_all_201907091708.zip",
+      "destination": "firmware\\ota\\A1601EX_11_OTA_040_all_201907091708.zip",
+      "expectedSizeBytes": 1556821800,
+      "sha256": "A42F3004B6628B74A3B115B6F9F72A0E49FE6FFAC710183ECD6F7C8C3847A71B",
+      "notes": [
+        "Stock recovery OTA, not SP Flash scatter firmware.",
+        "The phone previously rejected it because installed OS version compared newer."
+      ]
+    },
+    {
+      "id": "official-ota-d01-wipe",
+      "title": "Official OPPO A1601EX_11_D.01_170328 wipe recovery OTA",
+      "kind": "official-recovery-ota",
+      "priority": 60,
+      "method": "direct",
+      "sourceUrl": "http://downloads.oppo.com.s3.amazonaws.com/firmware/A1601%206.0/A1601EX_11_OTA_001_all_201703281552_wipe.zip",
+      "destination": "firmware\\ota\\A1601EX_11_OTA_001_all_201703281552_wipe.zip",
+      "expectedSizeBytes": 1581433299,
+      "sha256": "4B1729DB654B4705C5AAA64129B688546F4152875B7D41F8AD49EB19E09DB748",
+      "md5": "50A2097A0D423ED314B319ED0A7FA452",
+      "notes": [
+        "Stock recovery OTA, not SP Flash scatter firmware.",
+        "This package wipes user data: wipe=1, wipe-data=1."
+      ]
+    },
+    {
+      "id": "a15-scatter-local-record",
+      "title": "Oppo_F1S_A1601_MT6750_EX_11_A.15_160913 scatter firmware",
+      "kind": "scatter-firmware",
+      "priority": 70,
+      "method": "manual",
+      "destination": "firmware\\downloads\\Oppo_F1S_A1601_MT6750_EX_11_A.15_160913.zip",
+      "sha256": "A43CBA48ADC6DECC1E68D440D7D25F2E877972CB41CFA49896608410FD89E200",
+      "notes": [
+        "Original source URL was not recorded; the archive was user-provided/local.",
+        "The previous extracted copy had a zero-byte system.img and must not be trusted unless this ZIP verifies cleanly after redownload."
+      ]
+    },
+    {
+      "id": "a41-ahmadservicecenter-tarbz2",
+      "title": "A1601EX_11_A.41_191226 tar.bz2 candidate",
+      "kind": "candidate-firmware",
+      "priority": 80,
+      "method": "manual",
+      "destination": "firmware\\downloads\\A1601EX_11_A.41_191226.tar.bz2",
+      "notes": [
+        "Recorded as an AhmadServiceCenter / HalabTech-style mirror candidate.",
+        "The mirror was too slow to complete in-session and no stable direct URL or checksum was preserved.",
+        "Only accept it later after extraction and validation."
+      ]
+    }
+  ]
+}

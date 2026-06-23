@@ -4,6 +4,21 @@ This repo contains the terminal-guided recovery workflow for an OPPO F1s A1601 /
 
 ## Main Commands
 
+Restore GitHub Release assets first when starting from a clean checkout:
+
+```powershell
+.\scripts\powershell\Restore-GitHubAssets.ps1 -Force
+```
+
+Prepare/publish assets after local downloads have been validated:
+
+```powershell
+.\scripts\powershell\Prepare-GitHubAssets.ps1 -Clean
+.\scripts\powershell\Publish-GitHubAssets.ps1 -CreateRelease
+```
+
+Then use the guided flashing commands:
+
 ```powershell
 .\scripts\powershell\Start-F1sTerminalFlasher.ps1 -Command status
 .\scripts\powershell\Start-F1sTerminalFlasher.ps1 -Command prepare
@@ -27,4 +42,4 @@ src/cli/    Terminal controller
 tools/      Local SP MDT/SP Flash/SN Write/ADB tools, gitignored where binary
 ```
 
-Do not commit firmware dumps, stock ROM packages, driver installers, third-party tool binaries, IMEI values, or generated logs.
+Do not commit firmware dumps, stock ROM packages, driver installers, third-party tool binaries, IMEI values, or generated logs. Store large recovery assets in GitHub Releases using `config/github-release-assets.json`.

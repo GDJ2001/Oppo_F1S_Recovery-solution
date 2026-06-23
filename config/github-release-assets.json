@@ -1,0 +1,222 @@
+{
+  "schemaVersion": 1,
+  "release": {
+    "defaultTag": "oppo-f1s-assets-v1",
+    "assetRoot": "Oppo_F1S_Recovery_assets"
+  },
+  "policy": {
+    "binaryStorage": "github-releases",
+    "forbiddenNames": [
+      "DownloadTool.exe"
+    ],
+    "forbiddenExtensionsInGit": [
+      ".zip",
+      ".rar",
+      ".7z",
+      ".ofp",
+      ".exe",
+      ".dll",
+      ".sys",
+      ".cab"
+    ]
+  },
+  "bundles": [
+    {
+      "id": "firmware-raw",
+      "assetName": "oppo-f1s-firmware-raw.zip",
+      "stagePath": "firmware\\raw",
+      "description": "Raw firmware packages, including official OTAs, scatter archives, and useful OFP/service references."
+    },
+    {
+      "id": "firmware-extracted",
+      "assetName": "oppo-f1s-firmware-extracted.zip",
+      "stagePath": "firmware\\extracted",
+      "description": "Validated extracted firmware datasets used by SP Flash/SP MDT and NVRAM repair tooling."
+    },
+    {
+      "id": "tools",
+      "assetName": "oppo-f1s-tools.zip",
+      "stagePath": "tools",
+      "description": "Flash, NVRAM/IMEI, ADB/Fastboot, and OFP extraction tools used by this workflow."
+    },
+    {
+      "id": "drivers",
+      "assetName": "oppo-f1s-drivers.zip",
+      "stagePath": "drivers",
+      "description": "MediaTek VCOM/preloader and OPPO USB driver packages or extracted driver files."
+    },
+    {
+      "id": "checksums",
+      "assetName": "oppo-f1s-checksums.zip",
+      "stagePath": "firmware\\checksums",
+      "includePaths": [
+        "firmware\\checksums",
+        "docs"
+      ],
+      "description": "Generated release manifests, checksums, and validation reports."
+    }
+  ],
+  "items": [
+    {
+      "id": "official-ota-a41",
+      "bundle": "firmware-raw",
+      "sourcePath": "firmware\\ota\\A1601EX_11_OTA_041_all_201912261125.zip",
+      "stageRelativePath": "official-ota\\A1601EX_11_OTA_041_all_201912261125.zip",
+      "restorePath": "firmware\\ota\\A1601EX_11_OTA_041_all_201912261125.zip",
+      "sha256": "182EBD484B0CA85B176A10378BE2442EB0685E79AAE1523C8088C0452237F023",
+      "expectedSizeBytes": 1556852704,
+      "validationStatus": "official-ota",
+      "intendedUse": "Stock recovery reference/update package; not SP Flash scatter firmware.",
+      "required": true
+    },
+    {
+      "id": "official-ota-a40",
+      "bundle": "firmware-raw",
+      "sourcePath": "firmware\\ota\\A1601EX_11_OTA_040_all_201907091708.zip",
+      "stageRelativePath": "official-ota\\A1601EX_11_OTA_040_all_201907091708.zip",
+      "restorePath": "firmware\\ota\\A1601EX_11_OTA_040_all_201907091708.zip",
+      "sha256": "A42F3004B6628B74A3B115B6F9F72A0E49FE6FFAC710183ECD6F7C8C3847A71B",
+      "expectedSizeBytes": 1556821800,
+      "validationStatus": "official-ota",
+      "intendedUse": "Stock recovery reference/update package; not SP Flash scatter firmware.",
+      "required": true
+    },
+    {
+      "id": "official-ota-d01-wipe",
+      "bundle": "firmware-raw",
+      "sourcePath": "firmware\\ota\\A1601EX_11_OTA_001_all_201703281552_wipe.zip",
+      "stageRelativePath": "official-ota\\A1601EX_11_OTA_001_all_201703281552_wipe.zip",
+      "restorePath": "firmware\\ota\\A1601EX_11_OTA_001_all_201703281552_wipe.zip",
+      "sha256": "4B1729DB654B4705C5AAA64129B688546F4152875B7D41F8AD49EB19E09DB748",
+      "expectedSizeBytes": 1581433299,
+      "validationStatus": "official-ota-wipes-data",
+      "intendedUse": "Stock recovery reference/update package that wipes data.",
+      "required": true
+    },
+    {
+      "id": "a24-scatter-google-drive",
+      "bundle": "firmware-raw",
+      "sourcePath": "firmware\\downloads\\Oppo_F1S_A1601_MT6750_EX_11_A.24_161119_google_drive.zip",
+      "stageRelativePath": "scatter\\Oppo_F1S_A1601_MT6750_EX_11_A.24_161119_google_drive.zip",
+      "restorePath": "firmware\\downloads\\Oppo_F1S_A1601_MT6750_EX_11_A.24_161119_google_drive.zip",
+      "sha256": "52EEFBC19ED2E168F6C8CC52B3E2305790E70AAB447588F4FC6447B4C8AFC039",
+      "validationStatus": "reference-scatter",
+      "intendedUse": "Previously validated scatter fallback and comparison source.",
+      "required": true
+    },
+    {
+      "id": "a41-rmm-ofp-mediafire",
+      "bundle": "firmware-raw",
+      "sourcePath": "firmware\\downloads\\OPPO-F1S-A1601EX_11_A.41_191226_RepairMyMobile.zip",
+      "stageRelativePath": "ofp-service\\OPPO-F1S-A1601EX_11_A.41_191226_RepairMyMobile.zip",
+      "restorePath": "firmware\\downloads\\OPPO-F1S-A1601EX_11_A.41_191226_RepairMyMobile.zip",
+      "sha256": "DFAB4FD94C00B6C8ADF425E1C7FE60623DB5F1F9A91A1A429EB6F795F7B5E755",
+      "expectedSizeBytes": 1753001305,
+      "validationStatus": "ofp-service-reference",
+      "intendedUse": "OFP extraction/reference package; do not use OPPO DownloadTool.",
+      "required": true
+    },
+    {
+      "id": "a40-addrom-ofp-service",
+      "bundle": "firmware-raw",
+      "sourcePath": "firmware\\downloads\\[up_addROM.com]_Oppo_F1S_A1601_EX_11_A.40_190709.zip",
+      "stageRelativePath": "ofp-service\\[up_addROM.com]_Oppo_F1S_A1601_EX_11_A.40_190709.zip",
+      "restorePath": "firmware\\downloads\\[up_addROM.com]_Oppo_F1S_A1601_EX_11_A.40_190709.zip",
+      "sha256": "443D86FD94E4C1AAFB090018E5E88DD024C0844BB0DB1316F7C7A3012C0F83FE",
+      "validationStatus": "ofp-service-reference",
+      "intendedUse": "OFP extraction/reference package; do not use OPPO DownloadTool.",
+      "required": true
+    },
+    {
+      "id": "a15-scatter-local-record",
+      "bundle": "firmware-raw",
+      "sourcePath": "firmware\\downloads\\Oppo_F1S_A1601_MT6750_EX_11_A.15_160913.zip",
+      "stageRelativePath": "rejected-or-reference\\Oppo_F1S_A1601_MT6750_EX_11_A.15_160913.zip",
+      "restorePath": "firmware\\downloads\\Oppo_F1S_A1601_MT6750_EX_11_A.15_160913.zip",
+      "sha256": "A43CBA48ADC6DECC1E68D440D7D25F2E877972CB41CFA49896608410FD89E200",
+      "validationStatus": "rejected-or-reference",
+      "intendedUse": "Historical reference only unless a fresh archive validates cleanly.",
+      "required": false
+    },
+    {
+      "id": "a40-ofp-extracted-dataset",
+      "bundle": "firmware-extracted",
+      "sourcePath": "firmware\\ofp-extracted\\A1601EX_11_A40_190709_oppo6750_15331",
+      "stageRelativePath": "ofp\\A1601EX_11_A40_190709_oppo6750_15331",
+      "restorePath": "firmware\\ofp-extracted\\A1601EX_11_A40_190709_oppo6750_15331",
+      "validationStatus": "active-firmware-dataset",
+      "intendedUse": "Primary extracted dataset for SP Flash/SP MDT validation and SN Writer database files.",
+      "required": true
+    },
+    {
+      "id": "sp-flash-tool-v5",
+      "bundle": "tools",
+      "sourcePath": "tools\\sp-flash-tool\\SP_Flash_Tool_v5.1924_Win",
+      "stageRelativePath": "flashers\\sp-flash-tool-v5",
+      "restorePath": "tools\\sp-flash-tool\\SP_Flash_Tool_v5.1924_Win",
+      "validationStatus": "required-tool",
+      "intendedUse": "SP Flash Tool v5 GUI flasher.",
+      "required": true
+    },
+    {
+      "id": "sp-mdt",
+      "bundle": "tools",
+      "sourcePath": "tools\\SP_MDT_v6.2228.00",
+      "stageRelativePath": "flashers\\sp-mdt",
+      "restorePath": "tools\\SP_MDT_v6.2228.00",
+      "validationStatus": "required-tool",
+      "intendedUse": "MediaTek Multiport Download Tool fallback flasher.",
+      "required": true
+    },
+    {
+      "id": "sn-write-tool",
+      "bundle": "tools",
+      "sourcePath": "tools\\sn-write-tool\\SN_Write_Tool_v1.2020.00",
+      "stageRelativePath": "imei-nvram\\sn-write-tool",
+      "restorePath": "tools\\sn-write-tool\\SN_Write_Tool_v1.2020.00",
+      "validationStatus": "required-tool",
+      "intendedUse": "Restore only the phone's original IMEI/NVRAM identifiers.",
+      "required": true
+    },
+    {
+      "id": "adb-fastboot",
+      "bundle": "tools",
+      "sourcePath": "tools\\adb-fastboot\\platform-tools",
+      "stageRelativePath": "adb-fastboot\\platform-tools",
+      "restorePath": "tools\\adb-fastboot\\platform-tools",
+      "validationStatus": "support-tool",
+      "intendedUse": "ADB/Fastboot inspection and recovery-side diagnostics.",
+      "required": true
+    },
+    {
+      "id": "ofp-extractor",
+      "bundle": "tools",
+      "sourcePath": "tools\\ofp-extractor",
+      "stageRelativePath": "ofp-extractor",
+      "restorePath": "tools\\ofp-extractor",
+      "validationStatus": "repo-tool",
+      "intendedUse": "Project OFP dataset extraction wrapper.",
+      "required": true
+    },
+    {
+      "id": "mtk-vcom-drivers",
+      "bundle": "drivers",
+      "sourcePath": "drivers\\mtk-usb",
+      "stageRelativePath": "mtk-vcom",
+      "restorePath": "drivers\\mtk-usb",
+      "validationStatus": "required-driver",
+      "intendedUse": "MediaTek PreLoader/VCOM driver installation files.",
+      "required": true
+    },
+    {
+      "id": "oppo-usb-driver",
+      "bundle": "drivers",
+      "sourcePath": "drivers\\oppo-usb-driver-v4.0.1.6",
+      "stageRelativePath": "oppo-usb",
+      "restorePath": "drivers\\oppo-usb-driver-v4.0.1.6",
+      "validationStatus": "required-driver",
+      "intendedUse": "OPPO USB driver installation files.",
+      "required": true
+    }
+  ]
+}

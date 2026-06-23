@@ -9,3 +9,9 @@ Local-only third-party tools used by the recovery workflow.
 - `sp-flash-tool/`: SP Flash Tool v5 location for scatter flashing. Runtime binaries are ignored by Git.
 
 Tool binaries are ignored by Git. Commit notes, version requirements, checksums, and setup instructions.
+
+Release-hosted tool bundles are described by `config/github-release-assets.json` and restored with:
+
+```powershell
+.\scripts\powershell\Restore-GitHubAssets.ps1 -Force
+```
