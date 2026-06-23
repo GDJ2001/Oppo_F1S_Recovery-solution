@@ -185,11 +185,14 @@ foreach ($item in $items) {
 
     Move-InvalidExistingFile -Path $destination
 
+    $downloadAttempted = $false
     switch ([string]$item.method) {
         "direct" {
+            $downloadAttempted = $true
             Invoke-DirectDownload -Url ([string]$item.sourceUrl) -Destination $destination
         }
         "google-drive" {
+            $downloadAttempted = $true
             Invoke-GoogleDriveDownload -Url ([string]$item.sourceUrl) -Destination $destination
         }
         "manual" {
@@ -204,25 +207,25 @@ foreach ($item in $items) {
             else {
                 Write-DownloadLog "Skipping manual item. Re-run with -IncludeManual to print manual source details in the log."
             }
-            continue
         }
         default {
             Write-DownloadLog ("Skipping unsupported method: {0}" -f $item.method)
-            continue
         }
     }
 
-    if (Test-DownloadedFile -Item $item -Path $destination) {
-        Write-DownloadLog ("{0}: download verified." -f $item.id)
-    }
-    else {
-        $badPath = "$destination.failed-{0}" -f (Get-Date -Format "yyyyMMdd-HHmmss")
-        Move-Item -LiteralPath $destination -Destination $badPath -Force
-        Write-DownloadLog ("{0}: downloaded file failed validation and was moved to {1}" -f $item.id, $badPath)
-    }
+    if ($downloadAttempted) {
+        if (Test-DownloadedFile -Item $item -Path $destination) {
+            Write-DownloadLog ("{0}: download verified." -f $item.id)
+        }
+        else {
+            $badPath = "$destination.failed-{0}" -f (Get-Date -Format "yyyyMMdd-HHmmss")
+            Move-Item -LiteralPath $destination -Destination $badPath -Force
+            Write-DownloadLog ("{0}: downloaded file failed validation and was moved to {1}" -f $item.id, $badPath)
+        }
 
-    if ($DelaySecondsBetweenItems -gt 0) {
-        Start-Sleep -Seconds $DelaySecondsBetweenItems
+        if ($DelaySecondsBetweenItems -gt 0) {
+            Start-Sleep -Seconds $DelaySecondsBetweenItems
+        }
     }
 }
 
