@@ -1,5 +1,5 @@
 param(
-    [string]$FirmwareDir = "firmware\stock\A1601EX_11_A24_161119\Firmware",
+    [string]$FirmwareDir = "firmware\ofp-extracted\A1601EX_11_A40_190709_oppo6750_15331",
     [string]$FlashToolPath = "",
     [int]$CountdownSeconds = 20,
     [int]$MonitorSeconds = 90,
@@ -24,7 +24,7 @@ function Find-FlashingTools {
     $toolsRoot = Join-Path $RepoRoot "tools"
     if (-not (Test-Path -LiteralPath $toolsRoot)) { return @() }
 
-    $namePattern = "^(flash_tool|flash_tool_console|SPFlashTool|SPFlashToolV6|SP_MDT|mdt|SPMultiPortDownload|SP_MultiportDownload|SPMultiPortFlashDownloadProject)\.exe$"
+    $namePattern = "^(flash_tool|flash_tool_console)\.exe$"
     @(Get-ChildItem -LiteralPath $toolsRoot -Recurse -File -ErrorAction SilentlyContinue |
         Where-Object { $_.Name -match $namePattern -and $_.FullName -notmatch "DownloadTool\.exe$" } |
         ForEach-Object {

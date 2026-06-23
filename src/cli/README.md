@@ -2,7 +2,7 @@
 
 This folder contains the repo-owned terminal controller for the OPPO F1s A1601 recovery flow.
 
-It does not patch or replace SP MDT/SP Flash Tool. It validates firmware, prefers the local `SP_MDT Unpacked` runtime when present, launches the supported flasher, monitors Windows OPPO/MediaTek preloader state, and writes logs.
+It does not patch or replace SP Flash Tool. It validates firmware, prefers the local SP Flash Tool v5 runtime under `tools\sp-flash-tool`, launches the supported flasher, monitors Windows OPPO/MediaTek preloader state, and writes logs.
 
 Commands:
 

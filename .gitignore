@@ -3,6 +3,7 @@
 Thumbs.db
 .vscode/
 .idea/
+.playwright-mcp/
 
 # Python
 __pycache__/
@@ -25,14 +26,33 @@ coverage/
 
 # Local firmware and flashing tools
 firmware/downloads/*
+firmware/scratch/*
+firmware/packages/*
 firmware/stock/*
 firmware/ota/*
+firmware/ofp-extracted/*
 !firmware/downloads/.gitkeep
+!firmware/scratch/.gitkeep
+!firmware/packages/.gitkeep
 !firmware/stock/.gitkeep
 !firmware/ota/.gitkeep
+!firmware/ofp-extracted/.gitkeep
+!firmware/ofp-extracted/README.md
 tools/downloads/*
+!tools/downloads/.gitkeep
+tools/adb-fastboot/*
+!tools/adb-fastboot/.gitkeep
+!tools/adb-fastboot/README.md
+tools/sn-write-tool/*
+!tools/sn-write-tool/.gitkeep
+!tools/sn-write-tool/README.md
+tools/sp-flash-tool/*
+!tools/sp-flash-tool/.gitkeep
+!tools/sp-flash-tool/README.md
 tools/**/*.exe
 tools/**/*.dll
+tools/**/*.zip
+tools/**/*.rar
 drivers/**/*.zip
 drivers/**/*.cab
 drivers/**/*.exe
@@ -42,6 +62,10 @@ drivers/mtk-usb/gsmusbdriver-*/
 drivers/mtk-usb/microsoft-catalog-*/
 drivers/oppo-usb-driver-*/
 *.ofp
+*.rar
+*.tar
+*.tar.bz2
+*.zip
 DownloadTool.exe
 
 

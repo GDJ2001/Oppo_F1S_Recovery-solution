@@ -4,12 +4,13 @@
 
 ## Required Firmware State
 
-First flash a complete loose scatter firmware package. OFP/service packages are not accepted for this workflow.
+First flash a complete loose scatter firmware package. The A40 OFP must be
+extracted with the local extractor app before this workflow.
 
 Expected firmware shape:
 
 ```text
-firmware\stock\A1601EX_11_A24_161119\Firmware\MT6750_Android_scatter.txt
+firmware\ofp-extracted\A1601EX_11_A40_190709_oppo6750_15331\MT6750_Android_scatter.txt
 ```
 
 The same firmware directory must include matching AP and MD/BPLGU database files for SN Write Tool.
@@ -19,8 +20,8 @@ The same firmware directory must include matching AP and MD/BPLGU database files
 After Android boots from a valid firmware flash:
 
 ```powershell
-.\scripts\powershell\Get-NvramRepairReadiness.ps1 -FirmwareDir "firmware\stock\A1601EX_11_A24_161119\Firmware"
-.\scripts\powershell\Start-SnWriteTool.ps1 -FirmwareDir "firmware\stock\A1601EX_11_A24_161119\Firmware"
+.\scripts\powershell\Get-NvramRepairReadiness.ps1 -FirmwareDir "firmware\ofp-extracted\A1601EX_11_A40_190709_oppo6750_15331"
+.\scripts\powershell\Start-SnWriteTool.ps1 -FirmwareDir "firmware\ofp-extracted\A1601EX_11_A40_190709_oppo6750_15331"
 ```
 
 Enter only the phone's original IMEI from the box/sticker/paperwork. Do not generate, borrow, modify, or store IMEI values.

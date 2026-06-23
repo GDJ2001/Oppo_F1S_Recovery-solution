@@ -1,7 +1,7 @@
 param(
     [ValidateSet("status", "prepare", "flash", "monitor", "snwrite")]
     [string]$Command = "status",
-    [string]$FirmwareDir = "firmware\stock\A1601EX_11_A24_161119\Firmware",
+    [string]$FirmwareDir = "firmware\ofp-extracted\A1601EX_11_A40_190709_oppo6750_15331",
     [int]$CountdownSeconds = 20,
     [int]$MonitorSeconds = 90,
     [switch]$NoLaunch,
@@ -45,9 +45,16 @@ function Invoke-RepoScript {
     }
 }
 
-function Get-UnpackedMdtPath {
-    $path = Join-Path $script:RepoRoot "tools\SP_MDT_v6.2228.00\SP_MDT Unpacked\mdt.exe"
-    if (Test-Path -LiteralPath $path) { return $path }
+function Get-PreferredFlashToolPath {
+    $root = Join-Path $script:RepoRoot "tools\sp-flash-tool"
+    if (-not (Test-Path -LiteralPath $root)) {
+        return ""
+    }
+
+    $candidate = Get-ChildItem -LiteralPath $root -Recurse -File -Filter "flash_tool.exe" -ErrorAction SilentlyContinue |
+        Select-Object -First 1
+
+    if ($candidate) { return $candidate.FullName }
     return ""
 }
 
@@ -65,7 +72,7 @@ if (-not [IO.Path]::IsPathRooted($firmwarePath)) {
     $firmwarePath = Join-Path $script:RepoRoot $firmwarePath
 }
 
-$unpackedMdt = Get-UnpackedMdtPath
+$preferredFlashTool = Get-PreferredFlashToolPath
 
 switch ($Command) {
     "status" {
@@ -81,12 +88,12 @@ switch ($Command) {
         Invoke-RepoScript -ScriptName "Test-F1sFirmwarePackage.ps1" -Parameters @{ FirmwareDir = $firmwarePath }
 
         Write-Header "Tool Runtime"
-        if ($unpackedMdt) {
-            Write-Host "Using unpacked SP MDT runtime:"
-            Write-Host $unpackedMdt
+        if ($preferredFlashTool) {
+            Write-Host "Using SP Flash Tool runtime:"
+            Write-Host $preferredFlashTool
         }
         else {
-            Write-Warning "Unpacked SP MDT runtime was not found. The existing tool discovery will pick another supported SP Flash/SP MDT executable."
+            Write-Warning "SP Flash Tool v5 was not found under tools\sp-flash-tool."
         }
 
         Write-Header "Driver And Device State"
@@ -99,7 +106,7 @@ switch ($Command) {
             CountdownSeconds = $CountdownSeconds
             MonitorSeconds = $MonitorSeconds
         }
-        if ($unpackedMdt) { $params.FlashToolPath = $unpackedMdt }
+        if ($preferredFlashTool) { $params.FlashToolPath = $preferredFlashTool }
         if ($NoLaunch) { $params.NoLaunch = $true }
         if ($NoPrompt) { $params.NoPrompt = $true }
 
@@ -115,7 +122,7 @@ switch ($Command) {
             NoCountdown = $true
             NoPrompt = $true
         }
-        if ($unpackedMdt) { $params.FlashToolPath = $unpackedMdt }
+        if ($preferredFlashTool) { $params.FlashToolPath = $preferredFlashTool }
 
         Invoke-RepoScript -ScriptName "Start-F1sGuidedFlashSession.ps1" -Parameters $params
     }
