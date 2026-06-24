@@ -43,6 +43,7 @@ $releaseAssets = Get-Content -LiteralPath $releaseAssetsPath -Raw | ConvertFrom-
 $requiredAssets = @($releaseAssets.assets | ForEach-Object { Join-Path $bundleFullPath ([string]$_.assetName) })
 $requiredAssets += $releaseAssetsPath
 $requiredAssets += Join-Path $bundleFullPath "SHA256SUMS.txt"
+$requiredAssets = @($requiredAssets | Sort-Object { (Get-Item -LiteralPath $_).Length })
 $missing = @($requiredAssets | Where-Object { -not (Test-Path -LiteralPath $_ -PathType Leaf) })
 if ($missing.Count -gt 0) {
     throw "Missing release bundle files:$([Environment]::NewLine)$(($missing | ForEach-Object { "- $_" }) -join [Environment]::NewLine)"
