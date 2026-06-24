@@ -115,8 +115,23 @@ tools\downloads\en-SP_Flash_Tool_v5.1924_Win.zip
 SHA-256:
 
 ```text
-90C6CC2C52D419B3442EBE0E6E020DF1BB12E4F26F00C0C8CD9394C39C6081D2
+51DDD680902469814080CB013760EF155B403FD3035CC15FDED645CB5AC2BD5F
 ```
+
+Source:
+
+```text
+https://www.mediafire.com/file/ilc6sr8bwc9hotx/SP_Flash_Tool_v5.1924_Win.zip/file
+```
+
+Validation recorded on 2026-06-24:
+
+- archive size: `61762941` bytes
+- archive extraction: passed
+- `flash_tool.exe` SHA-256:
+  `67E9EB48161087D43ECA845B2DC0E9BEACAC3C0381BD1CE7989D48B17E2084A7`
+- Microsoft Defender custom scan: no detection
+- Authenticode status: not signed
 
 Other accepted executable shapes:
 
