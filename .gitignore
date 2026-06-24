@@ -48,6 +48,7 @@ tools/adb-fastboot/*
 tools/sn-write-tool/*
 !tools/sn-write-tool/.gitkeep
 !tools/sn-write-tool/README.md
+tools/SP_MDT_v*/
 tools/sp-flash-tool/*
 !tools/sp-flash-tool/.gitkeep
 !tools/sp-flash-tool/README.md
@@ -63,6 +64,7 @@ drivers/mtk-usb/exported-oem*/
 drivers/mtk-usb/gsmusbdriver-*/
 drivers/mtk-usb/microsoft-catalog-*/
 drivers/oppo-usb-driver-*/
+drivers/oppo-oplus-usb-driver/*
 *.ofp
 *.rar
 *.tar

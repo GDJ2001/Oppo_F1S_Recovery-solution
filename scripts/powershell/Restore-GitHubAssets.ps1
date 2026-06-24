@@ -44,12 +44,8 @@ if (-not $NoDownload) {
         throw "GitHub CLI 'gh' is required to download release assets. Install/authenticate gh, or use -NoDownload with assets already in $downloadFullPath."
     }
 
-    $assetNames = @($manifest.bundles | ForEach-Object { [string]$_.assetName })
-    $assetNames += "SHA256SUMS.txt"
-    foreach ($assetName in $assetNames) {
-        & $gh.Source release download $Tag --pattern $assetName --dir $downloadFullPath --clobber
-        if ($LASTEXITCODE -ne 0) { throw "gh release download failed for $assetName with exit code $LASTEXITCODE" }
-    }
+    & $gh.Source release download $Tag --dir $downloadFullPath --clobber
+    if ($LASTEXITCODE -ne 0) { throw "gh release download failed with exit code $LASTEXITCODE" }
 }
 
 $bundleChecksumPath = Join-Path $downloadFullPath "SHA256SUMS.txt"
@@ -66,27 +62,45 @@ if (Test-Path -LiteralPath $bundleChecksumPath -PathType Leaf) {
     }
 }
 
+$releaseAssetsPath = Join-Path $downloadFullPath "release-assets.json"
+if (-not (Test-Path -LiteralPath $releaseAssetsPath -PathType Leaf)) {
+    throw "Downloaded release-assets.json was not found: $releaseAssetsPath"
+}
+$releaseAssets = Get-Content -LiteralPath $releaseAssetsPath -Raw | ConvertFrom-Json
+
 if (Test-Path -LiteralPath $extractRoot) {
     Remove-Item -LiteralPath $extractRoot -Recurse -Force
 }
 New-Item -ItemType Directory -Path $extractRoot -Force | Out-Null
 
-foreach ($bundle in $manifest.bundles) {
-    $zipPath = Join-Path $downloadFullPath ([string]$bundle.assetName)
+foreach ($asset in $releaseAssets.assets | Where-Object { $_.mode -eq "zip" }) {
+    $zipPath = Join-Path $downloadFullPath ([string]$asset.assetName)
     if (-not (Test-Path -LiteralPath $zipPath -PathType Leaf)) {
         throw "Missing bundle ZIP: $zipPath"
     }
 
-    $bundleExtractPath = Join-Path $extractRoot ([string]$bundle.id)
+    $bundleExtractPath = Join-Path $extractRoot ([string]$asset.bundle)
     New-Item -ItemType Directory -Path $bundleExtractPath -Force | Out-Null
-    Expand-Archive -LiteralPath $zipPath -DestinationPath $bundleExtractPath -Force
+    & tar.exe -xf $zipPath -C $bundleExtractPath
+    if ($LASTEXITCODE -ne 0) { throw "Bundle extraction failed: $zipPath" }
 }
 
 foreach ($item in $manifest.items) {
     $bundle = @($manifest.bundles | Where-Object { $_.id -eq $item.bundle })[0]
     if (-not $bundle) { throw "Unknown bundle for item $($item.id): $($item.bundle)" }
 
-    $source = Join-Path (Join-Path $extractRoot ([string]$bundle.id)) ([string]$item.stageRelativePath)
+    $asset = @($releaseAssets.assets | Where-Object { @($_.itemIds) -contains $item.id })[0]
+    if (-not $asset) {
+        if ([bool]$item.required) { throw "Required item is not mapped to a release asset: $($item.id)" }
+        continue
+    }
+
+    if ($asset.mode -eq "direct") {
+        $source = Join-Path $downloadFullPath ([string]$asset.assetName)
+    }
+    else {
+        $source = Join-Path (Join-Path $extractRoot ([string]$bundle.id)) ([string]$item.stageRelativePath)
+    }
     if (-not (Test-Path -LiteralPath $source)) {
         if ([bool]$item.required) {
             throw "Required item missing from release bundle: $($item.id) at $source"

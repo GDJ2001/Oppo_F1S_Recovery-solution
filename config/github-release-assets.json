@@ -24,6 +24,7 @@
     {
       "id": "firmware-raw",
       "assetName": "oppo-f1s-firmware-raw.zip",
+      "assetMode": "individual-files",
       "stagePath": "firmware\\raw",
       "description": "Raw firmware packages, including official OTAs, scatter archives, and useful OFP/service references."
     },
@@ -223,13 +224,13 @@
       "required": true
     },
     {
-      "id": "oppo-usb-driver",
+      "id": "oppo-oplus-usb-driver",
       "bundle": "drivers",
-      "sourcePath": "drivers\\oppo-usb-driver-v4.0.1.6",
+      "sourcePath": "drivers\\oppo-oplus-usb-driver",
       "stageRelativePath": "oppo-usb",
-      "restorePath": "drivers\\oppo-usb-driver-v4.0.1.6",
-      "validationStatus": "required-driver",
-      "intendedUse": "OPPO USB driver installation files.",
+      "restorePath": "drivers\\oppo-oplus-usb-driver",
+      "validationStatus": "microsoft-signed-installed-driver-export",
+      "intendedUse": "Exported Microsoft-signed OPLUS Android USB driver package.",
       "required": true
     }
   ]

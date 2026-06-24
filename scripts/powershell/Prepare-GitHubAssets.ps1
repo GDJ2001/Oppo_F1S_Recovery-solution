@@ -72,7 +72,10 @@ function New-ZipFromDirectory {
 
     $parent = Split-Path -Parent $ZipPath
     New-Item -ItemType Directory -Path $parent -Force | Out-Null
-    Compress-Archive -Path (Join-Path $SourceDirectory "*") -DestinationPath $ZipPath -CompressionLevel Optimal
+    & tar.exe -a -cf $ZipPath -C $SourceDirectory .
+    if ($LASTEXITCODE -ne 0) {
+        throw "ZIP64 archive creation failed for: $SourceDirectory"
+    }
 }
 
 function New-ZipFromStagePaths {
@@ -241,28 +244,76 @@ $checksums = Get-ChildItem -LiteralPath $stageRoot -Recurse -Force -File |
 $checksumsPath = Join-Path $checksumDir "SHA256SUMS.txt"
 $checksums | Set-Content -LiteralPath $checksumsPath -Encoding UTF8
 
+$releaseAssets = [System.Collections.Generic.List[object]]::new()
+
 foreach ($bundle in $manifest.bundles) {
     $bundleStagePath = Join-Path $stageRoot ([string]$bundle.stagePath)
     if (-not (Test-Path -LiteralPath $bundleStagePath)) {
         New-Item -ItemType Directory -Path $bundleStagePath -Force | Out-Null
     }
 
-    $zipPath = Join-Path $bundleDir ([string]$bundle.assetName)
-    if ($bundle.PSObject.Properties.Name -contains "includePaths") {
-        New-ZipFromStagePaths -StageRoot $stageRoot -RelativePaths @($bundle.includePaths) -ZipPath $zipPath
+    $assetMode = if ($bundle.PSObject.Properties.Name -contains "assetMode") { [string]$bundle.assetMode } else { "zip" }
+    if ($assetMode -eq "individual-files") {
+        $bundleItems = @($preparedItems | Where-Object { $_.bundle -eq $bundle.id })
+        foreach ($preparedItem in $bundleItems) {
+            $sourcePath = Join-Path $stageRoot ([string]$preparedItem.stagePath)
+            if (-not (Test-Path -LiteralPath $sourcePath -PathType Leaf)) {
+                throw "Individual release asset must be a file: $sourcePath"
+            }
+
+            $leaf = Split-Path -Leaf $sourcePath
+            $assetName = "{0}--{1}--{2}" -f $bundle.id, $preparedItem.id, $leaf
+            $assetPath = Join-Path $bundleDir $assetName
+            Copy-Item -LiteralPath $sourcePath -Destination $assetPath -Force
+
+            $releaseAssets.Add([pscustomobject]@{
+                assetName = $assetName
+                mode = "direct"
+                bundle = $bundle.id
+                itemIds = @($preparedItem.id)
+            }) | Out-Null
+        }
     }
     else {
-        New-ZipFromDirectory -SourceDirectory $bundleStagePath -ZipPath $zipPath
+        $zipPath = Join-Path $bundleDir ([string]$bundle.assetName)
+        if ($bundle.PSObject.Properties.Name -contains "includePaths") {
+            New-ZipFromStagePaths -StageRoot $stageRoot -RelativePaths @($bundle.includePaths) -ZipPath $zipPath
+        }
+        else {
+            New-ZipFromDirectory -SourceDirectory $bundleStagePath -ZipPath $zipPath
+        }
+
+        $releaseAssets.Add([pscustomobject]@{
+            assetName = [string]$bundle.assetName
+            mode = "zip"
+            bundle = $bundle.id
+            itemIds = @($preparedItems | Where-Object { $_.bundle -eq $bundle.id } | Select-Object -ExpandProperty id)
+        }) | Out-Null
     }
 }
 
-$bundleChecksums = Get-ChildItem -LiteralPath $bundleDir -Filter "*.zip" -File |
+$releaseAssetsPath = Join-Path $bundleDir "release-assets.json"
+[pscustomobject]@{
+    schemaVersion = 1
+    generatedAt = (Get-Date).ToString("o")
+    assets = @($releaseAssets)
+} | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath $releaseAssetsPath -Encoding UTF8
+
+$maxReleaseAssetBytes = 2GB
+$oversized = @(Get-ChildItem -LiteralPath $bundleDir -File | Where-Object { $_.Length -ge $maxReleaseAssetBytes })
+if ($oversized.Count -gt 0) {
+    $details = ($oversized | ForEach-Object { "- $($_.Name): $($_.Length) bytes" }) -join [Environment]::NewLine
+    throw "One or more prepared assets exceed GitHub's 2 GiB per-asset limit:$([Environment]::NewLine)$details"
+}
+
+$bundleChecksums = Get-ChildItem -LiteralPath $bundleDir -File |
+    Where-Object { $_.Name -ne "SHA256SUMS.txt" } |
     Sort-Object Name |
     ForEach-Object { "{0}  {1}" -f (Get-FileSha256 -Path $_.FullName), $_.Name }
 $bundleChecksums | Set-Content -LiteralPath (Join-Path $bundleDir "SHA256SUMS.txt") -Encoding UTF8
 
 Write-Host "Prepared GitHub assets under: $outputFullPath"
-Write-Host "Release bundles:"
-Get-ChildItem -LiteralPath $bundleDir -Filter "*.zip" -File | Sort-Object Name | ForEach-Object {
+Write-Host "Release assets:"
+Get-ChildItem -LiteralPath $bundleDir -File | Sort-Object Name | ForEach-Object {
     Write-Host ("- {0} ({1:N0} bytes)" -f $_.Name, $_.Length)
 }

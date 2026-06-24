@@ -34,7 +34,14 @@ if (-not (Test-Path -LiteralPath $bundleFullPath -PathType Container)) {
     throw "Bundle directory not found. Run Prepare-GitHubAssets.ps1 first: $bundleFullPath"
 }
 
-$requiredAssets = @($manifest.bundles | ForEach-Object { Join-Path $bundleFullPath ([string]$_.assetName) })
+$releaseAssetsPath = Join-Path $bundleFullPath "release-assets.json"
+if (-not (Test-Path -LiteralPath $releaseAssetsPath -PathType Leaf)) {
+    throw "Release asset manifest not found. Run Prepare-GitHubAssets.ps1 first: $releaseAssetsPath"
+}
+
+$releaseAssets = Get-Content -LiteralPath $releaseAssetsPath -Raw | ConvertFrom-Json
+$requiredAssets = @($releaseAssets.assets | ForEach-Object { Join-Path $bundleFullPath ([string]$_.assetName) })
+$requiredAssets += $releaseAssetsPath
 $requiredAssets += Join-Path $bundleFullPath "SHA256SUMS.txt"
 $missing = @($requiredAssets | Where-Object { -not (Test-Path -LiteralPath $_ -PathType Leaf) })
 if ($missing.Count -gt 0) {
@@ -47,23 +54,36 @@ if (-not $gh) {
 }
 
 if ($CreateRelease) {
-    $createArgs = @("release", "create", $Tag, "--title", "OPPO F1s Recovery Assets $Tag", "--notes", "Firmware/tool binary assets for the OPPO F1s A1601 recovery workflow.")
-    if ($DryRun) {
-        Write-Host ("DRY RUN: gh {0}" -f ($createArgs -join " "))
+    & $gh.Source release view $Tag *> $null
+    $releaseExists = ($LASTEXITCODE -eq 0)
+    if ($releaseExists) {
+        Write-Host "Release already exists; reusing tag: $Tag"
     }
     else {
-        & $gh.Source @createArgs
-        if ($LASTEXITCODE -ne 0) { throw "gh release create failed with exit code $LASTEXITCODE" }
+        $createArgs = @("release", "create", $Tag, "--title", "OPPO F1s Recovery Assets $Tag", "--notes", "Firmware/tool binary assets for the OPPO F1s A1601 recovery workflow.")
+        if ($DryRun) {
+            Write-Host ("DRY RUN: gh {0}" -f ($createArgs -join " "))
+        }
+        else {
+            & $gh.Source @createArgs
+            if ($LASTEXITCODE -ne 0) { throw "gh release create failed with exit code $LASTEXITCODE" }
+        }
     }
 }
 
-$uploadArgs = @("release", "upload", $Tag) + $requiredAssets + @("--clobber")
-if ($DryRun) {
-    Write-Host ("DRY RUN: gh {0}" -f ($uploadArgs -join " "))
-}
-else {
+foreach ($assetPath in $requiredAssets) {
+    $uploadArgs = @("release", "upload", $Tag, $assetPath, "--clobber")
+    if ($DryRun) {
+        Write-Host ("DRY RUN: gh {0}" -f ($uploadArgs -join " "))
+        continue
+    }
+
+    Write-Host ("Uploading {0} ({1:N0} bytes)..." -f (Split-Path -Leaf $assetPath), (Get-Item -LiteralPath $assetPath).Length)
     & $gh.Source @uploadArgs
-    if ($LASTEXITCODE -ne 0) { throw "gh release upload failed with exit code $LASTEXITCODE" }
+    if ($LASTEXITCODE -ne 0) {
+        throw "gh release upload failed for $assetPath with exit code $LASTEXITCODE"
+    }
 }
 
 Write-Host "Release asset publish command completed for tag: $Tag"
+exit 0

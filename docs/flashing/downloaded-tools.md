@@ -145,6 +145,37 @@ SN Write Tool is needed after firmware flashing to restore only the phone's orig
 tools\sn-write-tool\**\SN_Writer.exe
 ```
 
+SN Write Tool v1.2020.00 archive:
+
+```text
+tools\downloads\SN_Write_Tool_v1.2020.00.zip
+SHA-256: 95BFC781E17B6AE4803340CD1D1E5B903B0F6BF82CC97170DFF7F8BCBDFDD65E
+Source: https://snwritetool.com/wp-content/uploads/SN_Write_Tool_v1.2020.00.zip
+```
+
+`SN_Writer.exe` SHA-256:
+
+```text
+A98646999A41B0F6B44870F186A5984159D252DA846B5DF3A4224F0A4F914425
+```
+
+SP MDT v6.2228.00 archive:
+
+```text
+tools\downloads\SP_MDT_v6.2228.00.zip
+SHA-256: 94FBA3A15EA101E63BE185F1D0597EBD65CB33896545F53819A09AE0E80A4D2D
+Source: https://spmdttool.com/wp-content/uploads/SP_MDT_v6.2228.00.zip
+```
+
+`mdt.exe` SHA-256:
+
+```text
+4BC6ECF8B797A2135A9F525017BCE2253F9D6DF3982EC0DCC6162425D03B4C06
+```
+
+Both legacy executables are not Authenticode-signed. Their extracted folders
+passed Microsoft Defender custom scans on 2026-06-24.
+
 Downloaded archives should be kept under:
 
 ```text

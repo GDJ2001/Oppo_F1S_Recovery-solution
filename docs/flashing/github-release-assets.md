@@ -10,16 +10,21 @@ The release staging root is:
 Oppo_F1S_Recovery_assets/
 ```
 
-Prepared bundles:
+Prepared assets:
 
 ```text
-oppo-f1s-firmware-raw.zip
+firmware-raw--<manifest-id>--<original-archive-name>
 oppo-f1s-firmware-extracted.zip
 oppo-f1s-tools.zip
 oppo-f1s-drivers.zip
 oppo-f1s-checksums.zip
+release-assets.json
 SHA256SUMS.txt
 ```
+
+Raw firmware archives are uploaded individually because one combined firmware
+bundle would exceed GitHub's 2 GiB per-asset limit. Other asset groups remain
+ZIP bundles.
 
 The tracked manifest is:
 
