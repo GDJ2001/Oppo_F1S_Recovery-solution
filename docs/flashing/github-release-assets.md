@@ -24,7 +24,8 @@ SHA256SUMS.txt
 
 Raw firmware archives are uploaded individually because one combined firmware
 bundle would exceed GitHub's 2 GiB per-asset limit. Other asset groups remain
-ZIP bundles.
+ZIP bundles. GitHub normalizes square brackets in Release asset names to
+periods; the generated release manifest records the normalized name.
 
 The tracked manifest is:
 

@@ -263,6 +263,7 @@ foreach ($bundle in $manifest.bundles) {
 
             $leaf = Split-Path -Leaf $sourcePath
             $assetName = "{0}--{1}--{2}" -f $bundle.id, $preparedItem.id, $leaf
+            $assetName = $assetName.Replace("[", ".").Replace("]", ".")
             $assetPath = Join-Path $bundleDir $assetName
             Copy-Item -LiteralPath $sourcePath -Destination $assetPath -Force
 
