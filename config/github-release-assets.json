@@ -95,6 +95,18 @@
       "required": true
     },
     {
+      "id": "official-ota-002-wipe",
+      "bundle": "firmware-raw",
+      "sourcePath": "firmware\\ota\\A1601EX_11_OTA_002_all_201704120142_wipe.zip",
+      "stageRelativePath": "official-ota\\A1601EX_11_OTA_002_all_201704120142_wipe.zip",
+      "restorePath": "firmware\\ota\\A1601EX_11_OTA_002_all_201704120142_wipe.zip",
+      "sha256": "FC1C90533289F14AE2345C30232F4E059D140B1475A6D420366F0ADBA5B8F097",
+      "expectedSizeBytes": 1581428614,
+      "validationStatus": "official-ota-wipes-data",
+      "intendedUse": "Stock recovery reference/update package that wipes data; not SP Flash scatter firmware.",
+      "required": false
+    },
+    {
       "id": "a24-scatter-google-drive",
       "bundle": "firmware-raw",
       "sourcePath": "firmware\\downloads\\Oppo_F1S_A1601_MT6750_EX_11_A.24_161119_google_drive.zip",
@@ -151,6 +163,18 @@
       "expectedSizeBytes": 1615702711,
       "validationStatus": "reference-scatter",
       "intendedUse": "Validated loose scatter reference package; older than the preferred service firmware.",
+      "required": false
+    },
+    {
+      "id": "a16-androidfilehost",
+      "bundle": "firmware-raw",
+      "sourcePath": "firmware\\downloads\\Oppo_F1S_A1601_(A1601EX_11_A.16_160920)_by_(FirmwareOS.com).zip",
+      "stageRelativePath": "scatter\\Oppo_F1S_A1601_(A1601EX_11_A.16_160920)_by_(FirmwareOS.com).zip",
+      "restorePath": "firmware\\downloads\\Oppo_F1S_A1601_(A1601EX_11_A.16_160920)_by_(FirmwareOS.com).zip",
+      "sha256": "ED7807463F8A32A24C1D445B5892906DFB43D0C609CB822851100DCF644A74C9",
+      "expectedSizeBytes": 1614050748,
+      "validationStatus": "research-candidate-downloaded",
+      "intendedUse": "AndroidFileHost A16 firmware candidate for extraction/auth comparison; validate before use.",
       "required": false
     },
     {

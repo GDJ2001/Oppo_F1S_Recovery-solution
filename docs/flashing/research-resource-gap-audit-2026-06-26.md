@@ -12,9 +12,11 @@ These resources from the research are already represented in
 | Research resource | Project coverage |
 |---|---|
 | `A1601EX_11_OTA_001_all_201703281552_wipe.zip` | Present as `official-ota-d01-wipe` |
+| `A1601EX_11_OTA_002_all_201704120142_wipe.zip` | Present as `official-ota-002-wipe` after 2026-06-26 download |
 | `A1601EX_11_OTA_040_all_201907091708.zip` | Present as `official-ota-a40` |
 | `A1601EX_11_OTA_041_all_201912261125.zip` | Present as `official-ota-a41` |
 | `Oppo_F1S_A1601_MT6750_EX_11_A.15_160913.zip` | Present as `a15-scatter-local-record` |
+| `Oppo_F1S_A1601_(A1601EX_11_A.16_160920)_by_(FirmwareOS.com).zip` | Present as `a16-androidfilehost` after 2026-06-26 download |
 | `Oppo_F1S_A1601_MT6750_EX_11_A.24_161119.zip` | Present as `a24-scatter-google-drive` |
 | `A1601EX_11_A.40_190709` OFP/service package | Present as `a40-addrom-ofp-service` and extracted active A40 dataset |
 | `A1601EX_11_A.41_191226.tar.bz2` | Present as `a41-ahmadservicecenter-tarbz2` |
@@ -27,14 +29,12 @@ tracked as local assets or GitHub Release assets.
 
 | Priority | Resource | Source from research | Why it matters | Notes |
 |---:|---|---|---|---|
-| 1 | `A1601EX_11_OTA_002_all_201704120142_wipe.zip` | Historical OPPO S3 URL | Official historical wipe OTA adjacent to D.01 package | Recovery ZIP only, not scatter/auth. Add as official OTA reference if downloadable. |
-| 2 | `Oppo_F1S_A1601_(A1601EX_11_A.16_160920)_by_(FirmwareOS.com).zip` | Android File Host `fid=11410963190603863245` | Older scatter/full firmware with published MD5 | Medium-risk mirror, but useful because the research captured MD5 `9a9615ad062a062eea00c6fd12a57388`. |
-| 3 | `Oppo_F1S_A1601_(A1601EX_11_A.33_170814)_by_(FirmwareOS.com).zip` | Android File Host `fid=11410963190603863341` | Later scatter/full firmware with published MD5 | Medium-risk mirror, MD5 `549bcb3680c7ed4ca16f15c4602cb9a7`. |
-| 4 | `A1601EX_11_A.41_191226.rar` | GSM-Firmware file `id=59518` | Full/service A41 package in a different container from the tar.bz2 and RMM ZIP | Useful comparison candidate for OFP contents and possible verified/signed image differences. |
-| 5 | `A1601EX_11_A.42_210906.zip` | HalabTech file `id=547512` | Latest named branch in the research | Medium-to-low confidence, but important because A42 may be newer than the installed branch. |
-| 6 | `OPPO A1601EX No Auth Firmware` | HalabTech folder `id=94604` | Only A1601-specific no-auth listing found | Treat as research-only unless extracted and validated. Do not treat as OPPO-authentic. |
-| 7 | `Oppo F1S A1601EX Official Firmware` | NeedROM page | Login-gated user-uploaded firmware whose instructions reference `MT6750_Android_scatter.txt` | Useful as documentation/source lead; package provenance is weak. |
-| 8 | `A1601EX_11_A.24_161119 Scatter firmware` from HalabTech | HalabTech folder `id=94604` | Same build family as current A24, but from another source | Lower priority because A24 is already covered from Google Drive/AddROM/FirmwareFile-style source. |
+| 1 | `Oppo_F1S_A1601_(A1601EX_11_A.33_170814)_by_(FirmwareOS.com).zip` | Android File Host `fid=11410963190603863341` | Later scatter/full firmware with published MD5 | Medium-risk mirror, MD5 `549bcb3680c7ed4ca16f15c4602cb9a7`. |
+| 2 | `A1601EX_11_A.41_191226.rar` | GSM-Firmware file `id=59518` | Full/service A41 package in a different container from the tar.bz2 and RMM ZIP | Useful comparison candidate for OFP contents and possible verified/signed image differences. |
+| 3 | `A1601EX_11_A.42_210906.zip` | HalabTech file `id=547512` | Latest named branch in the research | Medium-to-low confidence, but important because A42 may be newer than the installed branch. |
+| 4 | `OPPO A1601EX No Auth Firmware` | HalabTech folder `id=94604` | Only A1601-specific no-auth listing found | Treat as research-only unless extracted and validated. Do not treat as OPPO-authentic. |
+| 5 | `Oppo F1S A1601EX Official Firmware` | NeedROM page | Login-gated user-uploaded firmware whose instructions reference `MT6750_Android_scatter.txt` | Useful as documentation/source lead; package provenance is weak. |
+| 6 | `A1601EX_11_A.24_161119 Scatter firmware` from HalabTech | HalabTech folder `id=94604` | Same build family as current A24, but from another source | Lower priority because A24 is already covered from Google Drive/AddROM/FirmwareFile-style source. |
 
 ## Missing Auth-Adjacent Research Artifacts
 
@@ -68,9 +68,8 @@ The highest-value next downloads are:
 
 1. `A1601EX_11_A.42_210906.zip`
 2. `A1601EX_11_A.41_191226.rar`
-3. A.16 Android File Host mirror
-4. A.33 Android File Host mirror
-5. `A1601EX_11_OTA_002_all_201704120142_wipe.zip`
+3. A.33 Android File Host mirror
+4. HalabTech `OPPO A1601EX No Auth Firmware` listing, research-only
 
 For every downloaded candidate, extract to scratch first, then search for:
 

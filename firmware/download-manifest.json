@@ -147,6 +147,167 @@
         "Contains oppo6750_15331.ofp and matching A1601EX_11_A.41_191226 AP/MD database files.",
         "Contains DownloadTool.exe; keep only as an OFP extraction/reference package and do not execute DownloadTool."
       ]
+    },
+    {
+      "id": "official-ota-002-wipe",
+      "title": "Official OPPO A1601EX_11_OTA_002_all_201704120142 wipe recovery OTA",
+      "kind": "official-recovery-ota",
+      "priority": 90,
+      "method": "direct",
+      "sourceUrl": "http://downloads.oppo.com.s3.amazonaws.com/firmware/A1601%206.0/A1601EX_11_OTA_002_all_201704120142_wipe.zip",
+      "sourcePages": [
+        "https://forums.hardwarezone.com.sg/threads/oppo-f1s.5431302/",
+        "https://www.mobile01.com/topicdetail.php?f=689&t=5190071"
+      ],
+      "destination": "firmware\\ota\\A1601EX_11_OTA_002_all_201704120142_wipe.zip",
+      "expectedSizeBytes": 1581428614,
+      "sha256": "FC1C90533289F14AE2345C30232F4E059D140B1475A6D420366F0ADBA5B8F097",
+      "md5": "AFF5866444EBCCAE44ED837985602E22",
+      "notes": [
+        "Historical OPPO S3 URL surfaced in deep research.",
+        "Stock recovery OTA, not SP Flash scatter firmware.",
+        "Expected to wipe data."
+      ]
+    },
+    {
+      "id": "a42-halabtech-zip",
+      "title": "A1601EX_11_A.42_210906 HalabTech ZIP candidate",
+      "kind": "candidate-firmware",
+      "priority": 100,
+      "method": "manual",
+      "sourceUrl": "https://support.halabtech.com/index.php?a=downloads&b=file&id=547512",
+      "sourcePages": [
+        "https://support.halabtech.com/index.php?a=downloads&b=folder&id=94604",
+        "https://gbfirmware.com/index.php?a=downloads&b=file&id=13935",
+        "https://filewale.com/files/oppo-f1s-a1601ex_11_a42_210906zip/43796"
+      ],
+      "destination": "firmware\\downloads\\A1601EX_11_A.42_210906.zip",
+      "expectedSizeBytes": 1750199173,
+      "notes": [
+        "Deep research identified this as the latest named A1601EX branch.",
+        "Manual because HalabTech/GBFirmware-style download pages may require login, rate limiting, or browser flow.",
+        "Validate for scatter/OFP, AP/MD databases, auth/custom-bin artifacts, and verified/signed image coverage before any use."
+      ]
+    },
+    {
+      "id": "a41-gsm-firmware-rar",
+      "title": "A1601EX_11_A.41_191226 GSM-Firmware RAR candidate",
+      "kind": "candidate-firmware",
+      "priority": 110,
+      "method": "manual",
+      "sourceUrl": "https://gsm-firmware.com/index.php?a=downloads&b=file&id=59518",
+      "destination": "firmware\\downloads\\A1601EX_11_A.41_191226_gsm-firmware.rar",
+      "expectedSizeBytes": 1696512082,
+      "notes": [
+        "Deep research identified this as a full/service A41 package in a different container from the local tar.bz2 and RMM ZIP.",
+        "Manual because the GSM-Firmware page may require a browser/account flow.",
+        "Useful comparison target for OFP contents and possible verified/signed image differences."
+      ]
+    },
+    {
+      "id": "a16-androidfilehost",
+      "title": "Oppo_F1S_A1601 A.16 AndroidFileHost scatter/full firmware candidate",
+      "kind": "candidate-firmware",
+      "priority": 120,
+      "method": "androidfilehost",
+      "sourceUrl": "https://androidfilehost.com/?fid=11410963190603863245",
+      "destination": "firmware\\downloads\\Oppo_F1S_A1601_(A1601EX_11_A.16_160920)_by_(FirmwareOS.com).zip",
+      "expectedSizeBytes": 1614050748,
+      "sha256": "ED7807463F8A32A24C1D445B5892906DFB43D0C609CB822851100DCF644A74C9",
+      "md5": "9A9615AD062A062EEA00C6FD12A57388",
+      "notes": [
+        "Deep research identified this AndroidFileHost mirror with a published MD5.",
+        "Mirror header on 2026-06-26 reported Content-Length 1614050748.",
+        "Downloader resolves AndroidFileHost mirrors through the public mirror endpoint.",
+        "Treat as medium-risk mirror and validate before use."
+      ]
+    },
+    {
+      "id": "a33-androidfilehost",
+      "title": "Oppo_F1S_A1601 A.33 AndroidFileHost scatter/full firmware candidate",
+      "kind": "candidate-firmware",
+      "priority": 130,
+      "method": "androidfilehost",
+      "sourceUrl": "https://androidfilehost.com/?fid=11410963190603863341",
+      "destination": "firmware\\downloads\\Oppo_F1S_A1601_(A1601EX_11_A.33_170814)_by_(FirmwareOS.com).zip",
+      "expectedSizeBytes": 1633642442,
+      "md5": "549BCB3680C7ED4CA16F15C4602CB9A7",
+      "notes": [
+        "Deep research identified this AndroidFileHost mirror with a published MD5.",
+        "Mirror header on 2026-06-26 reported Content-Length 1633642442.",
+        "Downloader resolves AndroidFileHost mirrors through the public mirror endpoint.",
+        "Treat as medium-risk mirror and validate before use."
+      ]
+    },
+    {
+      "id": "a1601-no-auth-halabtech",
+      "title": "OPPO A1601EX No Auth Firmware listing",
+      "kind": "research-only-auth-adjacent",
+      "priority": 140,
+      "method": "manual",
+      "sourceUrl": "https://support.halabtech.com/index.php?a=downloads&b=folder&id=94604",
+      "destination": "firmware\\downloads\\research-only\\OPPO_A1601EX_No_Auth_Firmware",
+      "notes": [
+        "Research-only listing, not a trusted OPPO auth source.",
+        "Do not promote into active flashing unless extracted and independently validated.",
+        "Do not use to bypass OPPO/MediaTek authentication."
+      ]
+    },
+    {
+      "id": "needrom-a1601ex-official-firmware",
+      "title": "NeedROM Oppo F1S A1601EX Official Firmware lead",
+      "kind": "candidate-firmware",
+      "priority": 150,
+      "method": "manual",
+      "sourceUrl": "https://www.needrom.com/download/oppo-f1s-a1601ex-official-firmware/",
+      "destination": "firmware\\downloads\\needrom\\Oppo_F1S_A1601EX_Official_Firmware",
+      "notes": [
+        "Login-gated user-uploaded source lead from deep research.",
+        "Instructions reference MT6750_Android_scatter.txt.",
+        "Treat as documentation/source lead unless an archive is manually obtained and validated."
+      ]
+    },
+    {
+      "id": "needrom-generic-auth-da-bft",
+      "title": "NeedROM PRELOADER AUTH DA FILE (BFT) generic auth/DA bundle",
+      "kind": "research-only-auth-adjacent",
+      "priority": 160,
+      "method": "manual",
+      "sourceUrl": "https://www.needrom.com/download/preloader-auth-da-file-bft/",
+      "destination": "firmware\\downloads\\research-only\\PRELOADER_AUTH_DA_FILE_BFT",
+      "notes": [
+        "Research-only generic auth/DA bundle, not A1601-specific.",
+        "Deep research says it lists Auth_sv5.auth, New_sv5.auth, several DAs, and many OPPO models.",
+        "Do not use as trusted device auth."
+      ]
+    },
+    {
+      "id": "filewale-a1601-custom-bin",
+      "title": "Filewale A1601 tested custom.bin research lead",
+      "kind": "research-only-auth-adjacent",
+      "priority": 170,
+      "method": "manual",
+      "sourceUrl": "https://www.filewale.com/files/a1601-tested-custombin-file-by-filewalecom/20294",
+      "destination": "firmware\\downloads\\research-only\\A1601_Tested_Custom.Bin_File_By_Filewale.com.zip",
+      "notes": [
+        "Tiny third-party custom.bin lead from deep research.",
+        "Research-only unless manually obtained and inspected.",
+        "Not an OPPO source."
+      ]
+    },
+    {
+      "id": "gsmtestedfile-a1601-cm2-boot",
+      "title": "GSM Tested File OPPO F1 PLUS A1601 CM2 MT2 boot helper lead",
+      "kind": "research-only-auth-adjacent",
+      "priority": 180,
+      "method": "manual",
+      "sourceUrl": "https://gsmtestedfile.com/index.php?a=downloads&b=file&id=1034",
+      "destination": "firmware\\downloads\\research-only\\OPPO_F1_PLUS_A1601_CM2_MT2_Boot_File",
+      "notes": [
+        "High mislabel risk: source says F1 PLUS while A1601 is F1s.",
+        "Research-only boot/helper lead.",
+        "Do not flash blind."
+      ]
     }
   ]
 }

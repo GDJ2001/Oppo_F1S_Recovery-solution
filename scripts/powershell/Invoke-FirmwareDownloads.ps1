@@ -36,6 +36,12 @@ function Get-FileSha256 {
     return (Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash.ToUpperInvariant()
 }
 
+function Get-FileMd5 {
+    param([Parameter(Mandatory = $true)][string]$Path)
+
+    return (Get-FileHash -LiteralPath $Path -Algorithm MD5).Hash.ToUpperInvariant()
+}
+
 function Test-DownloadedFile {
     param(
         [Parameter(Mandatory = $true)]$Item,
@@ -61,6 +67,17 @@ function Test-DownloadedFile {
             $actualHash = Get-FileSha256 -Path $Path
             if ($actualHash -ne $expectedHash.ToUpperInvariant()) {
                 Write-DownloadLog ("{0}: SHA-256 mismatch for existing file. expected={1} actual={2}" -f $Item.id, $expectedHash, $actualHash)
+                return $false
+            }
+        }
+    }
+
+    if ($Item.PSObject.Properties.Name -contains "md5") {
+        $expectedMd5 = [string]$Item.md5
+        if (-not [string]::IsNullOrWhiteSpace($expectedMd5)) {
+            $actualMd5 = Get-FileMd5 -Path $Path
+            if ($actualMd5 -ne $expectedMd5.ToUpperInvariant()) {
+                Write-DownloadLog ("{0}: MD5 mismatch for existing file. expected={1} actual={2}" -f $Item.id, $expectedMd5, $actualMd5)
                 return $false
             }
         }
@@ -124,7 +141,7 @@ function Invoke-GoogleDriveDownload {
     $fileId = $idMatch.Groups[1].Value
     $directUrl = "https://drive.usercontent.google.com/download?id=$fileId&export=download&confirm=t"
     Write-DownloadLog ("Starting resumable Google Drive download through curl.exe: {0}" -f $Url)
-    & $curl.Source -L --fail --retry 10 --retry-delay 30 --continue-at - --output $partial $directUrl
+    & $curl.Source -L --fail --retry 10 --retry-delay 30 --speed-limit 1024 --speed-time 180 --continue-at - --output $partial $directUrl
     if ($LASTEXITCODE -ne 0) {
         throw "curl.exe failed with exit code $LASTEXITCODE"
     }
@@ -157,7 +174,68 @@ function Invoke-MediaFireDownload {
 
     $directUrl = [System.Net.WebUtility]::HtmlDecode($match.Groups[1].Value)
     Write-DownloadLog "Starting resumable MediaFire download."
-    & $curl.Source -L --fail --retry 10 --retry-delay 30 --continue-at - --output $partial $directUrl
+    & $curl.Source -L --fail --retry 10 --retry-delay 30 --speed-limit 1024 --speed-time 180 --continue-at - --output $partial $directUrl
+    if ($LASTEXITCODE -ne 0) {
+        throw "curl.exe failed with exit code $LASTEXITCODE"
+    }
+
+    Move-Item -LiteralPath $partial -Destination $Destination -Force
+}
+
+function Invoke-AndroidFileHostDownload {
+    param(
+        [Parameter(Mandatory = $true)][string]$Url,
+        [Parameter(Mandatory = $true)][string]$Destination
+    )
+
+    $partial = "$Destination.partial"
+    $curl = Get-Command curl.exe -ErrorAction SilentlyContinue
+    if (-not $curl) {
+        throw "curl.exe is required for resumable AndroidFileHost downloads."
+    }
+
+    $idMatch = [regex]::Match($Url, '[?&]fid=([^&]+)')
+    if (-not $idMatch.Success) {
+        throw "AndroidFileHost file ID could not be parsed from: $Url"
+    }
+
+    $fileId = $idMatch.Groups[1].Value
+    Write-DownloadLog ("Resolving AndroidFileHost mirrors for file ID {0}" -f $fileId)
+    $mirrorResponse = $null
+    $lastError = $null
+    for ($attempt = 1; $attempt -le 5; $attempt++) {
+        try {
+            $mirrorResponse = Invoke-RestMethod `
+                -Uri "https://androidfilehost.com/libs/otf/mirrors.otf.php" `
+                -Method Post `
+                -Body @{ submit = "submit"; action = "getdownloadmirrors"; fid = $fileId } `
+                -ErrorAction Stop
+            break
+        }
+        catch {
+            $lastError = $_.Exception.Message
+            Write-DownloadLog ("AndroidFileHost mirror resolution attempt {0} failed: {1}" -f $attempt, $lastError)
+            if ($attempt -lt 5) { Start-Sleep -Seconds (10 * $attempt) }
+        }
+    }
+    if (-not $mirrorResponse) {
+        throw "AndroidFileHost mirror resolution failed after retries: $lastError"
+    }
+
+    if (-not $mirrorResponse -or [string]$mirrorResponse.STATUS -ne "1") {
+        throw ("AndroidFileHost mirror resolution failed: {0}" -f ($mirrorResponse | ConvertTo-Json -Compress))
+    }
+
+    $mirror = @($mirrorResponse.MIRRORS | Where-Object { $_.url -and $_.selectable -eq "1" } | Select-Object -First 1)
+    if (-not $mirror) {
+        $mirror = @($mirrorResponse.MIRRORS | Where-Object { $_.url } | Select-Object -First 1)
+    }
+    if (-not $mirror) {
+        throw "AndroidFileHost did not return a usable mirror URL."
+    }
+
+    Write-DownloadLog ("Starting resumable AndroidFileHost download from {0}" -f $mirror.name)
+    & $curl.Source -L --fail --retry 10 --retry-delay 30 --speed-limit 1024 --speed-time 180 --continue-at - --output $partial ([string]$mirror.url)
     if ($LASTEXITCODE -ne 0) {
         throw "curl.exe failed with exit code $LASTEXITCODE"
     }
@@ -231,6 +309,10 @@ foreach ($item in $items) {
         "mediafire" {
             $downloadAttempted = $true
             Invoke-MediaFireDownload -Url ([string]$item.sourceUrl) -Destination $destination
+        }
+        "androidfilehost" {
+            $downloadAttempted = $true
+            Invoke-AndroidFileHostDownload -Url ([string]$item.sourceUrl) -Destination $destination
         }
         "manual" {
             if ($IncludeManual) {
