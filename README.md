@@ -24,10 +24,13 @@ Then use the guided flashing commands:
 .\scripts\powershell\Start-F1sTerminalFlasher.ps1 -Command prepare
 .\scripts\powershell\Start-F1sTerminalFlasher.ps1 -Command flash -CountdownSeconds 20 -MonitorSeconds 90
 .\scripts\powershell\Start-F1sTerminalFlasher.ps1 -Command monitor -MonitorSeconds 90
+.\scripts\powershell\Start-F1sTerminalFlasher.ps1 -Command hard -CountdownSeconds 20 -MonitorSeconds 120
 .\scripts\powershell\Start-F1sTerminalFlasher.ps1 -Command snwrite
 ```
 
 For the live flash attempt, start the terminal flash command first, set SP MDT to normal download/`Download Only`, then connect the phone while it is fully powered off. Use no buttons first; if Preloader/VCOM is not detected, retry only `Volume Up`, then only `Volume Down`. Do not hold both volume buttons on this phone because that enters ColorOS Recovery.
+
+For a hard-bricked phone, use `-Command hard` instead of the normal `flash` command. It records BROM/Preloader evidence under `logs` and keeps destructive decisions, including preloader flashing or formatting, manual and explicit.
 
 ## Active Layout
 

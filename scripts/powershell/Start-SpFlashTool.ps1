@@ -20,7 +20,7 @@ function Find-FlashingTools {
         Where-Object { $_.Name -match $namePattern -and $_.FullName -notmatch "DownloadTool\.exe$" } |
         ForEach-Object {
             $kind = if ($_.Name -match "flash_tool|SPFlashTool") { "SP Flash Tool" } else { "SP MDT" }
-            $rank = if ($_.FullName -match "SP_Flash_Tool_V6|v6") { 1 } elseif ($_.FullName -match "sp-flash-tool|SP_Flash_Tool_v5|v5") { 2 } elseif ($kind -eq "SP Flash Tool") { 3 } else { 4 }
+            $rank = if ($kind -eq "SP Flash Tool" -and $_.FullName -match "sp-flash-tool|SP_Flash_Tool_v5|v5") { 1 } elseif ($kind -eq "SP Flash Tool" -and $_.FullName -match "SP_Flash_Tool_V6|v6") { 2 } elseif ($kind -eq "SP Flash Tool") { 3 } else { 4 }
             [pscustomobject]@{ Path = $_.FullName; Kind = $kind; Rank = $rank }
         } | Sort-Object Rank, Path)
 }

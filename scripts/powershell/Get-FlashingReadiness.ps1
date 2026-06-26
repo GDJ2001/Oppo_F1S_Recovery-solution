@@ -1,4 +1,7 @@
-param([switch]$Json)
+param(
+    [string]$FirmwareDir = "",
+    [switch]$Json
+)
 
 $ErrorActionPreference = "Stop"
 if (Get-Variable -Name PSNativeCommandUseErrorActionPreference -Scope Global -ErrorAction SilentlyContinue) {
@@ -19,7 +22,7 @@ function Find-FlashingTools {
         Where-Object { $_.Name -match $namePattern -and $_.FullName -notmatch "DownloadTool\.exe$" } |
         ForEach-Object {
             $kind = if ($_.Name -match "flash_tool|SPFlashTool") { "SP Flash Tool" } else { "SP MDT" }
-            $rank = if ($_.FullName -match "SP_Flash_Tool_V6|v6") { 1 } elseif ($_.FullName -match "v5|sp-flash-tool") { 2 } elseif ($kind -eq "SP Flash Tool") { 3 } else { 4 }
+            $rank = if ($kind -eq "SP Flash Tool" -and $_.FullName -match "sp-flash-tool|SP_Flash_Tool_v5|v5") { 1 } elseif ($kind -eq "SP Flash Tool" -and $_.FullName -match "SP_Flash_Tool_V6|v6") { 2 } elseif ($kind -eq "SP Flash Tool") { 3 } else { 4 }
             [pscustomobject]@{ Path = $_.FullName; Kind = $kind; Rank = $rank }
         } | Sort-Object Rank, Path)
 }
@@ -40,7 +43,9 @@ $adb = Join-Path $repoRoot "tools\adb-fastboot\platform-tools\adb.exe"
 $fastboot = Join-Path $repoRoot "tools\adb-fastboot\platform-tools\fastboot.exe"
 $flashTool = Find-FlashingTools -RepoRoot $repoRoot | Select-Object -First 1
 $driverInfs = @(Get-ChildItem -LiteralPath (Join-Path $repoRoot "drivers\mtk-usb") -Recurse -File -Filter "*.inf" -ErrorAction SilentlyContinue)
-$firmware = & $validator -Json | ConvertFrom-Json
+$validationArgs = @{ Json = $true }
+if (-not [string]::IsNullOrWhiteSpace($FirmwareDir)) { $validationArgs.FirmwareDir = $FirmwareDir }
+$firmware = & $validator @validationArgs | ConvertFrom-Json
 $adbDevices = Invoke-Capture -FilePath $adb -Arguments @("devices", "-l")
 $fastbootDevices = Invoke-Capture -FilePath $fastboot -Arguments @("devices", "-l")
 $usbDevices = @(Get-PnpDevice -PresentOnly -ErrorAction SilentlyContinue |

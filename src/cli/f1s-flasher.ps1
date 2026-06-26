@@ -1,5 +1,5 @@
 param(
-    [ValidateSet("status", "prepare", "flash", "monitor", "snwrite")]
+    [ValidateSet("status", "prepare", "flash", "monitor", "hard", "snwrite")]
     [string]$Command = "status",
     [string]$FirmwareDir = "firmware\ofp-extracted\A1601EX_11_A40_190709_oppo6750_15331",
     [int]$CountdownSeconds = 20,
@@ -77,7 +77,7 @@ $preferredFlashTool = Get-PreferredFlashToolPath
 switch ($Command) {
     "status" {
         Write-Header "Flashing Readiness"
-        Invoke-RepoScript -ScriptName "Get-FlashingReadiness.ps1"
+        Invoke-RepoScript -ScriptName "Get-FlashingReadiness.ps1" -Parameters @{ FirmwareDir = $firmwarePath }
 
         Write-Header "NVRAM/IMEI Repair Readiness"
         Invoke-RepoScript -ScriptName "Get-NvramRepairReadiness.ps1" -Parameters @{ FirmwareDir = $firmwarePath }
@@ -97,7 +97,7 @@ switch ($Command) {
         }
 
         Write-Header "Driver And Device State"
-        Invoke-RepoScript -ScriptName "Get-FlashingReadiness.ps1"
+        Invoke-RepoScript -ScriptName "Get-FlashingReadiness.ps1" -Parameters @{ FirmwareDir = $firmwarePath }
     }
 
     "flash" {
@@ -125,6 +125,19 @@ switch ($Command) {
         if ($preferredFlashTool) { $params.FlashToolPath = $preferredFlashTool }
 
         Invoke-RepoScript -ScriptName "Start-F1sGuidedFlashSession.ps1" -Parameters $params
+    }
+
+    "hard" {
+        $params = @{
+            FirmwareDir = $firmwarePath
+            CountdownSeconds = $CountdownSeconds
+            MonitorSeconds = $MonitorSeconds
+        }
+        if ($preferredFlashTool) { $params.FlashToolPath = $preferredFlashTool }
+        if ($NoLaunch) { $params.NoLaunch = $true }
+        if ($NoPrompt) { $params.NoPrompt = $true }
+
+        Invoke-RepoScript -ScriptName "Start-F1sHardRecoverySession.ps1" -Parameters $params
     }
 
     "snwrite" {

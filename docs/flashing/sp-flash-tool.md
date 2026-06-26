@@ -59,3 +59,13 @@ The repo also has a terminal controller that prefers the local SP Flash Tool v5 
 ```
 
 This is the custom terminal entry point for the project. It does not patch MediaTek/OPPO tools; it uses SP Flash Tool as a runtime dependency and owns validation, countdown, driver/device monitoring, and logs.
+
+## Hard-Brick Track
+
+If the phone is now hard-bricked, use the separate hard-recovery session:
+
+```powershell
+.\scripts\powershell\Start-F1sTerminalFlasher.ps1 -Command hard -CountdownSeconds 20 -MonitorSeconds 120
+```
+
+That command records BROM/Preloader evidence more aggressively and keeps high-risk write decisions manual. See `hard-recovery.md` before checking `preloader` or considering any format mode.

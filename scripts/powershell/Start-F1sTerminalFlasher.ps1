@@ -1,5 +1,5 @@
 param(
-    [ValidateSet("status", "prepare", "flash", "monitor", "snwrite")]
+    [ValidateSet("status", "prepare", "flash", "monitor", "hard", "snwrite")]
     [string]$Command = "status",
     [string]$FirmwareDir = "firmware\ofp-extracted\A1601EX_11_A40_190709_oppo6750_15331",
     [int]$CountdownSeconds = 20,
