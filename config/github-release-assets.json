@@ -178,6 +178,30 @@
       "required": false
     },
     {
+      "id": "a33-androidfilehost",
+      "bundle": "firmware-raw",
+      "sourcePath": "firmware\\downloads\\Oppo_F1S_A1601_(A1601EX_11_A.33_170814)_by_(FirmwareOS.com).zip",
+      "stageRelativePath": "scatter\\Oppo_F1S_A1601_(A1601EX_11_A.33_170814)_by_(FirmwareOS.com).zip",
+      "restorePath": "firmware\\downloads\\Oppo_F1S_A1601_(A1601EX_11_A.33_170814)_by_(FirmwareOS.com).zip",
+      "sha256": "53557236B60E94767CE06720B711C9A8C3362B16C2604B69FA7A93FDD0B1595A",
+      "expectedSizeBytes": 1633642442,
+      "validationStatus": "research-candidate-downloaded",
+      "intendedUse": "AndroidFileHost A33 firmware candidate for extraction/auth comparison; validate before use.",
+      "required": false
+    },
+    {
+      "id": "needrom-generic-auth-da-bft",
+      "bundle": "firmware-raw",
+      "sourcePath": "firmware\\downloads\\research-only\\PRELOADER_AUTH_DA_FILE_BFT\\Preloader-Auth-DA-Files-BFT_Needrom.rar",
+      "stageRelativePath": "rejected-or-reference\\auth-da\\Preloader-Auth-DA-Files-BFT_Needrom.rar",
+      "restorePath": "firmware\\downloads\\research-only\\PRELOADER_AUTH_DA_FILE_BFT\\Preloader-Auth-DA-Files-BFT_Needrom.rar",
+      "sha256": "E05EE4209AFE49FFB66A057841B9FEC30CB51A77130AFE92D35A925B0AE734A8",
+      "expectedSizeBytes": 453729624,
+      "validationStatus": "research-only-quarantined",
+      "intendedUse": "NeedROM generic auth/DA bundle for offline inspection only; not A1601-specific and not trusted auth.",
+      "required": false
+    },
+    {
       "id": "a40-ofp-extracted-dataset",
       "bundle": "firmware-extracted",
       "sourcePath": "firmware\\ofp-extracted\\A1601EX_11_A40_190709_oppo6750_15331",

@@ -4,6 +4,7 @@ Use these guides for the active OPPO F1s A1601 scatter firmware workflow:
 
 - `github-release-assets.md`
 - `firmware-redownload-plan.md`
+- `research-resource-gap-audit-2026-06-26.md`
 - `firmware-auth-audit-2026-06-24.md`
 - `sp-flash-tool.md`
 - `hard-recovery.md`
