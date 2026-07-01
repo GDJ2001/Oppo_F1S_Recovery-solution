@@ -107,6 +107,19 @@ function New-ZipFromStagePaths {
     Compress-Archive -LiteralPath $paths -DestinationPath $ZipPath -CompressionLevel Optimal
 }
 
+function Get-GitHubReleaseAssetName {
+    param([Parameter(Mandatory = $true)][string]$Name)
+
+    # GitHub normalizes some punctuation in uploaded release asset names.
+    # Keep the generated restore manifest aligned with the names returned by
+    # `gh release view/download`.
+    $normalized = $Name.Replace("[", ".").Replace("]", ".").Replace("(", ".").Replace(")", ".")
+    while ($normalized.Contains("..")) {
+        $normalized = $normalized.Replace("..", ".")
+    }
+    return $normalized
+}
+
 $manifestFullPath = Resolve-RepoPath $ManifestPath
 if (-not (Test-Path -LiteralPath $manifestFullPath -PathType Leaf)) {
     throw "Manifest not found: $manifestFullPath"
@@ -263,7 +276,7 @@ foreach ($bundle in $manifest.bundles) {
 
             $leaf = Split-Path -Leaf $sourcePath
             $assetName = "{0}--{1}--{2}" -f $bundle.id, $preparedItem.id, $leaf
-            $assetName = $assetName.Replace("[", ".").Replace("]", ".")
+            $assetName = Get-GitHubReleaseAssetName -Name $assetName
             $assetPath = Join-Path $bundleDir $assetName
             Copy-Item -LiteralPath $sourcePath -Destination $assetPath -Force
 
