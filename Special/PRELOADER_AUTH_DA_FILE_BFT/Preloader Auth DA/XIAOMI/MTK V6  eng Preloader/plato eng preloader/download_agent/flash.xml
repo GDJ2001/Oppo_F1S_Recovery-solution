@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<flash-mode>
+    <project>plato</project>
+    <dagent>DA_BR.bin</dagent>
+    <scatter>../MT6895_Android_scatter.xml</scatter>
+    <build_version>alps-mp-s0.mp1.tc8sp2-mt6983-V1.0.1_P268</build_version>
+    <build_time>2022-09-22 11:33:05</build_time>
+    <version>1.0</version>
+    <contact>Fengping.Yu</contact>
+</flash-mode>

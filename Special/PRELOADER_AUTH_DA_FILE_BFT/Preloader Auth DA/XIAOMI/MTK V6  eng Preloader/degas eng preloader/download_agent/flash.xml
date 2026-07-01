@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<flash-mode>
+    <project>degas</project>
+    <dagent>DA_BR.bin</dagent>
+    <scatter>../MT6897_Android_scatter.xml</scatter>
+    <build_version>alps-mp-u0.mp1.tc8sp3-V1</build_version>
+    <build_time>2024-08-01 02:40:10</build_time>
+    <version>1.0</version>
+    <contact>Shuai.Zhang</contact>
+    <phone_tracking_en>Y</phone_tracking_en>
+</flash-mode>

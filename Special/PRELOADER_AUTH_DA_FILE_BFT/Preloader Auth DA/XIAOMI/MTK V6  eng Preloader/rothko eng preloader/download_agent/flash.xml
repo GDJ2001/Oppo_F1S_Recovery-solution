@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<flash-mode>
+    <project>rothko</project>
+    <dagent>DA_BR.bin</dagent>
+    <scatter>../MT6989_Android_scatter.xml</scatter>
+    <build_version>alps-mp-u0.mp1.tc8sp3-V1</build_version>
+    <build_time>2024-08-20 12:38:03</build_time>
+    <version>1.0</version>
+    <contact>Jiming.Wang</contact>
+    <phone_tracking_en>Y</phone_tracking_en>
+</flash-mode>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<flash-mode>
+    <project>charoite</project>
+    <dagent>DA_BR.bin</dagent>
+    <scatter>../MT6789_Android_scatter.xml</scatter>
+    <build_version>alps-mp-s0.mp1.tc8sp2-cs1-xm.V1.143.1_P25</build_version>
+    <build_time>2025-12-01 02:29:42</build_time>
+    <version>1.0</version>
+    <contact>Shuai.Zhang</contact>
+</flash-mode>

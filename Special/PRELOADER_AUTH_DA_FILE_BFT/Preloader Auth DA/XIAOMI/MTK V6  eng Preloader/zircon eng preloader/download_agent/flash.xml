@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<flash-mode>
+    <project>zircon</project>
+    <dagent>DA_BR.bin</dagent>
+    <scatter>../MT6886_Android_scatter.xml</scatter>
+    <build_version>alps-mp-t0.mp1.tc8sp2-V1.14_P314</build_version>
+    <build_time>2023-09-11 18:31:48</build_time>
+    <version>1.0</version>
+    <contact>Jiming.Wang</contact>
+</flash-mode>

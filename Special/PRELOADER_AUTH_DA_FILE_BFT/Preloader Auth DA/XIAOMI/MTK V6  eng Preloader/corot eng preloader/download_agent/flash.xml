@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<flash-mode>
+    <project>corot</project>
+    <dagent>DA_BR.bin</dagent>
+    <scatter>../MT6985_Android_scatter.xml</scatter>
+    <build_version>alps-mp-t0.mp1.tc8sp2-V1.14_P182</build_version>
+    <build_time>2023-07-17 07:34:12</build_time>
+    <version>1.0</version>
+    <contact>Huihui.Wang</contact>
+    <phone_tracking_en>Y</phone_tracking_en>
+</flash-mode>

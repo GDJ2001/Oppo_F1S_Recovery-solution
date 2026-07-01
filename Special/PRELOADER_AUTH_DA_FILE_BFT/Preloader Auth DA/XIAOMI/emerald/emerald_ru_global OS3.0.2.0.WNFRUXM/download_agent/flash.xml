@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<flash-mode>
+    <project>emerald</project>
+    <dagent>DA_BR.bin</dagent>
+    <scatter>../MT6789_Android_scatter.xml</scatter>
+    <build_version>alps-mp-b0.mp1.tc8sp2-V1</build_version>
+    <build_time>2026-04-22 15:42:39</build_time>
+    <version>1.0</version>
+    <contact>Shuai.Zhang</contact>
+</flash-mode>

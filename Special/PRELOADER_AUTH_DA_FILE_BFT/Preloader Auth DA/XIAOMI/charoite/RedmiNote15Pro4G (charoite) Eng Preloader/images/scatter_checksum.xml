@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<scatter>
+	<version>1.0</version>
+	<images>
+		<file name="preloader_charoite.bin" chk_method="ADD" checksum="0xa88d83d8"/>
+		<file name="preloader_charoite.bin" chk_method="ADD" checksum="0xa88d83d8"/>
+		<file name="countrycode.img" chk_method="ADD" checksum="0x0"/>
+		<file name="vbmeta.img" chk_method="ADD" checksum="0x478b6724"/>
+		<file name="vbmeta_system.img" chk_method="ADD" checksum="0x87c02718"/>
+		<file name="vbmeta_vendor.img" chk_method="ADD" checksum="0xf25cdcc9"/>
+		<file name="md1img.img" chk_method="ADD" checksum="0xf00d25d5"/>
+		<file name="spmfw.img" chk_method="ADD" checksum="0xfc06346e"/>
+		<file name="pi_img.img" chk_method="ADD" checksum="0x1cbb3718"/>
+		<file name="dpm.img" chk_method="ADD" checksum="0x719a0b55"/>
+		<file name="scp.img" chk_method="ADD" checksum="0xda6a6c9d"/>
+		<file name="sspm.img" chk_method="ADD" checksum="0x24899b2d"/>
+		<file name="mcupm.img" chk_method="ADD" checksum="0xc352d7a8"/>
+		<file name="gz.img" chk_method="ADD" checksum="0x8ee9c2d0"/>
+		<file name="lk.img" chk_method="ADD" checksum="0x95d0367f"/>
+		<file name="boot.img" chk_method="ADD" checksum="0x471da3df"/>
+		<file name="vendor_boot.img" chk_method="ADD" checksum="0x26f08c5b"/>
+		<file name="dtbo.img" chk_method="ADD" checksum="0x8950ce62"/>
+		<file name="tee.img" chk_method="ADD" checksum="0xe0ad58b"/>
+		<file name="logo.bin" chk_method="ADD" checksum="0xb1340d8e"/>
+		<file name="efuse.img" chk_method="ADD" checksum="0xe0423047"/>
+		<file name="rescue.img" chk_method="ADD" checksum="0x33240644"/>
+		<file name="super.img" chk_method="ADD" checksum="0x1c0acf"/>
+		<file name="userdata.img" chk_method="ADD" checksum="0xf381ea26"/>
+	</images>
+</scatter>
